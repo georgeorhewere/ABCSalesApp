@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ABCApp.Data\ABCApp.Data.csproj" />
+    <ProjectReference Include="..\ABCApp.Repo\ABCApp.Repo.csproj" />
+  </ItemGroup>
+
 </Project>

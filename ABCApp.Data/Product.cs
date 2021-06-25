@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ABCApp.Data
 {
-    [Table("Master_Product")]
+    
     public class Product
     {
         public int ProductId { get; set; }

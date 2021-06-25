@@ -11,7 +11,7 @@ namespace ABCApp.Data
         public DateTime DateOfSale { get; set; }
         public decimal OrderTotal { get; set; }
         public string RegionCode { get; set; }
-        public string CityCode { get; set; }
+        public int CityCode { get; set; }
         public string CountryCode { get; set; }        
         
     }

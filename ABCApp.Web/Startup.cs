@@ -1,3 +1,4 @@
+using ABCApp.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ABCApp.Repo.Interfaces;
+using ABCApp.Service.Interfaces;
+using ABCApp.Service;
 
 namespace ABCApp.Web
 {
@@ -24,10 +29,14 @@ namespace ABCApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ABCDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped(typeof(IRepository), typeof(ABCRepository));
+            services.AddTransient<IProductService, ProductService>();
+            //services.AddTransient<IUserProfileService, UserProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ABCDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -39,6 +48,7 @@ namespace ABCApp.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            context.Database.Migrate();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

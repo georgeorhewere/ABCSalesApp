@@ -1,4 +1,5 @@
-﻿using ABCApp.Web.Models;
+﻿using ABCApp.Service.Interfaces;
+using ABCApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,17 @@ namespace ABCApp.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductService productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductService prdctService)
         {
             _logger = logger;
+            productService = prdctService;
         }
 
         public IActionResult Index()
         {
+            var prods = productService.GetProducts().ToList();
             return View();
         }
 
