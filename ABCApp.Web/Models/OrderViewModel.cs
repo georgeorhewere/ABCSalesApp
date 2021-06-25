@@ -29,12 +29,14 @@ namespace ABCApp.Web.Models
         public IList<SelectListItem> Regions { get; set; }
         [Required(ErrorMessage = "City Required")]
         [DisplayName("City")]
-        public IList<SelectListItem> Cities { get; set; }
+        public IList<SelectListItem> Cities { get; set; }        
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
+        [Required(ErrorMessage = "Quantity Required")]
+        public int Quantity { get; set; }
+        [Required(ErrorMessage = "Date of Sale Required")]
+        [Display(Name = "Date Of Sale")]        
+        public DateTime DateOfSale { get; set; }
 
         // public IList<SelectListItem> Products { get; set; }
-        public int Quantity { get; set; }
-
-
-
     }
 }

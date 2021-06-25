@@ -37,6 +37,13 @@
                 @Html.DropDownListFor(x => x.Cities, Model.Cities, "--Select City --", new { @id = "ddlCity", @class = "form-control" })
                 <span asp-validation-for="Cities" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="DateOfSale" class="control-label"></label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.DateOfSale, new { @class = "form-control" , @id= "dateOfSale" })
+                    @Html.ValidationMessageFor(model => model.DateOfSale, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -45,56 +52,61 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script type="text/javascript">
-    $(document).ready(function () {
-        // country change
-        $('#ddlCountry').change(function () {
-            $.ajax({
-                type: "post",
-                url: "/Order/GetRegions",
-                data: { countryCode: $('#ddlCountry').val() },
-                datatype: "json",
-                traditional: true,
-                success: function (data) {                    
-                    $("#ddlRegion").empty()
-                    $("#ddlRegion").append("<option value='' selected='selected'>-- Select Region --</option>")
-                    for (var i = 0; i < data.length; i++) {                       
-                        $("#ddlRegion").append('<option value="'
-                            + data[i].value + '">'
-                            + data[i].text + '</option>')
-                    }
-                    
-                    
-                }
-            });
-        });
-        //region change
-        $('#ddlRegion').change(function () {
-            $.ajax({
-                type: "post",
-                url: "/Order/GetCities",
-                data: { regionCode: $('#ddlRegion').val() },
-                datatype: "json",
-                traditional: true,
-                success: function (data) {
-                    $("#ddlCity").empty()
-                    $("#ddlCity").append("<option value='' selected='selected'>-- Select City --</option>")
-                    for (var i = 0; i < data.length; i++) {
-                        $("#ddlCity").append('<option value="'
-                            + data[i].value + '">'
-                            + data[i].text + '</option>')
-                    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // country change
+            $('#ddlCountry').change(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Order/GetRegions",
+                    data: { countryCode: $('#ddlCountry').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        $("#ddlRegion").empty()
+                        $("#ddlRegion").append("<option value='' selected='selected'>-- Select Region --</option>")
+                        for (var i = 0; i < data.length; i++) {
+                            $("#ddlRegion").append('<option value="'
+                                + data[i].value + '">'
+                                + data[i].text + '</option>')
+                        }
 
 
-                }
+                    }
+                });
+            });
+            //region change
+            $('#ddlRegion').change(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Order/GetCities",
+                    data: { regionCode: $('#ddlRegion').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        $("#ddlCity").empty()
+                        $("#ddlCity").append("<option value='' selected='selected'>-- Select City --</option>")
+                        for (var i = 0; i < data.length; i++) {
+                            $("#ddlCity").append('<option value="'
+                                + data[i].value + '">'
+                                + data[i].text + '</option>')
+                        }
+
+
+                    }
+                });
+            });
+            //date picker
+            $("#dateOfSale").datepicker({                
+                changeMonth: true,
+                changeYear: true,
+                format: "dd/mm/yyyy",
+                language: "tr"
             });
         });
-    });
-</script>
+    </script>
 }

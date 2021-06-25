@@ -50,7 +50,20 @@ namespace ABCApp.Web.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    // Save order
+                    // redirect to index with Id
+
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    return View();
+                }
+
+                
             }
             catch
             {
