@@ -32,6 +32,7 @@ namespace ABCApp.Web
             services.AddDbContext<ABCDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IRepository), typeof(ABCRepository));
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICountryService, CountryService>();
             //services.AddTransient<IUserProfileService, UserProfileService>();
         }
 

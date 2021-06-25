@@ -1,0 +1,73 @@
+﻿@model ABCApp.Web.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>OrderViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Countries" class="control-label"></label>
+                @Html.DropDownListFor(x => x.Countries, Model.Countries, "--Select Country--", new { @id = "ddlCountry", @class = "form-control" })
+                <span asp-validation-for="Countries" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Regions" class="control-label"></label>
+                @Html.DropDownListFor(x => x.Regions, Model.Regions, "--Select Region--", new { @id = "ddlRegion", @class = "form-control" })
+                <span asp-validation-for="Regions" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlCountry').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/Order/GetRegions",
+                data: { countryCode: $('#ddlCountry').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {                    
+                    $("#ddlRegion").empty()
+                    $("#ddlRegion").append("<option value='' selected='selected'>-- Select Region --</option>")
+                    for (var i = 0; i < data.length; i++) {                       
+                        $("#ddlRegion").append('<option value="'
+                            + data[i].value + '">'
+                            + data[i].text + '</option>')
+                    }
+                    
+                    
+                }
+            });
+        });
+    });
+</script>
+}

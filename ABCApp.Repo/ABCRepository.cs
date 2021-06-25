@@ -2,6 +2,7 @@
 using ABCApp.Repo.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ABCApp.Repo
@@ -19,6 +20,21 @@ namespace ABCApp.Repo
         {
             //throw new NotImplementedException();
              return context.Products.AsQueryable<Product>();
+        }
+
+        public IEnumerable<Country> GetCountries()
+        {
+            return context.Countries.FromSqlRaw("[dbo].[GetCountries]").ToList();
+        }
+
+        public IEnumerable<Region> GetCountryRegions(string countryCode)
+        {
+            return context.Regions.FromSqlRaw($"[dbo].[GetCountryRegions] {countryCode}").ToList();
+        }
+
+        public IEnumerable<City> GetRegionCities(string regionCode)
+        {
+            throw new NotImplementedException();
         }
 
         public void Insert(Order entity)

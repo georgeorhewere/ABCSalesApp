@@ -23,7 +23,7 @@ namespace ABCApp.Web.Controllers
 
         public IActionResult Index()
         {
-            var prods = productService.GetProducts().ToList();
+           // var prods = productService.GetProducts().ToList();
             return View();
         }
 

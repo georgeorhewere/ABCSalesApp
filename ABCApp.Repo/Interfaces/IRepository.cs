@@ -9,7 +9,11 @@ namespace ABCApp.Repo.Interfaces
 {
     public interface IRepository
     {
-        IQueryable<Product> GetAll();        
+        IQueryable<Product> GetAll();
+        IEnumerable<Country> GetCountries();
+        IEnumerable<Region> GetCountryRegions(string countryCode);
+        IEnumerable<City> GetRegionCities(string regionCode);
+
         void Insert(Order entity);        
         void SaveChanges();
     }
