@@ -38,7 +38,7 @@ namespace ABCApp.Web.Controllers
                                                                 Text = x.CountryName, 
                                                                 Value = x.CountryCode })
                                             .ToList();
-            model.Regions = new List<SelectListItem>();
+            
 
             return View(model);
         }
@@ -110,6 +110,19 @@ namespace ABCApp.Web.Controllers
                 regions = regions.Concat(countryRegions).ToList();
             }
             return Json(regions);
+        }
+
+        [HttpPost]
+        public ActionResult GetCities(string regionCode)
+        {
+            List<SelectListItem> cities = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(regionCode))
+            {
+                var regionCities = countryService.GetCities(regionCode).Select(x => new SelectListItem { Text = x.CityName, Value = x.CityCode.ToString() }).ToList();
+                cities = cities.Concat(regionCities).ToList();
+            }
+
+            return Json(cities);
         }
 
 

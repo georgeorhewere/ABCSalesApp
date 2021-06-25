@@ -17,8 +17,7 @@ namespace ABCApp.Repo
             context = _context;
         }
         public IQueryable<Product> GetAll()
-        {
-            //throw new NotImplementedException();
+        {            
              return context.Products.AsQueryable<Product>();
         }
 
@@ -34,7 +33,7 @@ namespace ABCApp.Repo
 
         public IEnumerable<City> GetRegionCities(string regionCode)
         {
-            throw new NotImplementedException();
+            return context.Cities.FromSqlRaw($"[dbo].[GetRegionCities] {regionCode}").ToList();
         }
 
         public void Insert(Order entity)

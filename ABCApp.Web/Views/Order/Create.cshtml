@@ -32,6 +32,11 @@
                 @Html.DropDownListFor(x => x.Regions, Model.Regions, "--Select Region--", new { @id = "ddlRegion", @class = "form-control" })
                 <span asp-validation-for="Regions" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Cities" class="control-label"></label>
+                @Html.DropDownListFor(x => x.Cities, Model.Cities, "--Select City --", new { @id = "ddlCity", @class = "form-control" })
+                <span asp-validation-for="Cities" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -48,6 +53,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script type="text/javascript">
     $(document).ready(function () {
+        // country change
         $('#ddlCountry').change(function () {
             $.ajax({
                 type: "post",
@@ -65,6 +71,27 @@
                     }
                     
                     
+                }
+            });
+        });
+        //region change
+        $('#ddlRegion').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/Order/GetCities",
+                data: { regionCode: $('#ddlRegion').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    $("#ddlCity").empty()
+                    $("#ddlCity").append("<option value='' selected='selected'>-- Select City --</option>")
+                    for (var i = 0; i < data.length; i++) {
+                        $("#ddlCity").append('<option value="'
+                            + data[i].value + '">'
+                            + data[i].text + '</option>')
+                    }
+
+
                 }
             });
         });

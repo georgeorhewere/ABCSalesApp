@@ -10,7 +10,7 @@ namespace ABCApp.Repo.Migrations
                 AS
                 BEGIN
                     SET NOCOUNT ON;
-                    select * from Master_Country
+                    select * from Master_Country Order By CountryName
                 END";
 
             migrationBuilder.Sql(sp);

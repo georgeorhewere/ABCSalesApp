@@ -18,7 +18,7 @@ namespace ABCApp.Service
         }
         public IEnumerable<City> GetCities(string regionCode)
         {
-            throw new NotImplementedException();
+            return abcRepository.GetRegionCities(regionCode);
         }
 
         public IEnumerable<Country> GetCountries()
