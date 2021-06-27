@@ -17,8 +17,6 @@ namespace ABCApp.Repo.StoredProcedures
         public static readonly string SaveErrorInfo = "[dbo].[AddErrorInfo]";
         public static readonly string GetProductOrders = "[dbo].[GetProductOrders]";
 
-
-
-
     }
+
 }
