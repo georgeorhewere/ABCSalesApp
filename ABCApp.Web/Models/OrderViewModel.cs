@@ -47,6 +47,7 @@ namespace ABCApp.Web.Models
 
         [Required(ErrorMessage = "Sales Total Required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        [DisplayName("Total Amount")]
         public decimal? TotalSale { get; set; }
     }
 }

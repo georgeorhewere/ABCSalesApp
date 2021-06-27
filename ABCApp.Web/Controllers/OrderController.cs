@@ -111,7 +111,7 @@ namespace ABCApp.Web.Controllers
                     if (orderService.SaveOrder(salesOrder))
                     {
                         //redirect to table view
-                        return View();
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {

@@ -37,6 +37,7 @@ namespace ABCApp.Repo.Migrations
 							AND (@CountryCode is null OR o.CountryCode  like @CountryCode +'%')
 							AND (@RegionCode is null OR o.RegionCode  like @RegionCode +'%')
 							AND (@CityCode is null OR o.CityCode  = @CityCode)
+                        Order By c.CountryName
                 END";
 
             migrationBuilder.Sql(sp);

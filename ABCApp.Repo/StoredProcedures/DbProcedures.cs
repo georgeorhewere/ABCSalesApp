@@ -13,7 +13,7 @@ namespace ABCApp.Repo.StoredProcedures
         public static readonly string LoadCities = "[dbo].[GetRegionCities]";
         public static readonly string LoadProducts = "[dbo].[GetProducts]";
         public static readonly string GetProductByID = "[dbo].[GetProductById]";
-        public static readonly string SaveOrderInfo = "[dbo].[sp_InsertOrderInfo]";
+        public static readonly string SaveOrderInfo = "[dbo].[InsertOrderInfo]";
         public static readonly string SaveErrorInfo = "[dbo].[AddErrorInfo]";
         public static readonly string GetProductOrders = "[dbo].[GetProductOrders]";
 

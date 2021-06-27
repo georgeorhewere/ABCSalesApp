@@ -18,17 +18,46 @@ namespace ABCApp.Service
         }
         public IEnumerable<City> GetCities(string regionCode)
         {
-            return abcRepository.GetRegionCities(regionCode);
+            try
+            {
+                return abcRepository.GetRegionCities(regionCode);
+            }
+            catch (Exception ex)
+            {
+
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Cities", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return new List<City>();
+            }
         }
 
         public IEnumerable<Country> GetCountries()
         {
-            return abcRepository.GetCountries();
+            try
+            {
+                return abcRepository.GetCountries();
+            }
+            catch (Exception ex)
+            {
+
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Countries", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return new List<Country>();
+            }
         }
 
         public IEnumerable<Region> GetRegions(string countryCode)
         {
-            return abcRepository.GetCountryRegions(countryCode);
+            try
+            {
+                return abcRepository.GetCountryRegions(countryCode);
+            }
+            catch (Exception ex)
+            {
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Regions", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return new List<Region>();
+            }
         }
     }
 }
