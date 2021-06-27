@@ -1,5 +1,6 @@
 ﻿using ABCApp.Data;
 using ABCApp.Repo.Interfaces;
+using ABCApp.Repo.StoredProcedures;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,24 +17,24 @@ namespace ABCApp.Repo
         {
             context = _context;
         }
-        public IQueryable<Product> GetAll()
+        public IEnumerable<Product> GetProducts()
         {            
-             return context.Products.AsQueryable<Product>();
+             return context.Products.FromSqlRaw($"{DbProcedures.LoadProducts}").ToList();
         }
 
         public IEnumerable<Country> GetCountries()
         {
-            return context.Countries.FromSqlRaw("[dbo].[GetCountries]").ToList();
+            return context.Countries.FromSqlRaw($"{DbProcedures.LoadCountries}").ToList();
         }
 
         public IEnumerable<Region> GetCountryRegions(string countryCode)
         {
-            return context.Regions.FromSqlRaw($"[dbo].[GetCountryRegions] {countryCode}").ToList();
+            return context.Regions.FromSqlRaw($"{DbProcedures.LoadRegions} {countryCode}").ToList();
         }
 
         public IEnumerable<City> GetRegionCities(string regionCode)
         {
-            return context.Cities.FromSqlRaw($"[dbo].[GetRegionCities] {regionCode}").ToList();
+            return context.Cities.FromSqlRaw($"{DbProcedures.LoadCities} {regionCode}").ToList();
         }
 
         public void Insert(Order entity)
@@ -44,6 +45,11 @@ namespace ABCApp.Repo
         public void SaveChanges()
         {
             throw new NotImplementedException();
+        }
+
+        public Product GetProductById(int productId)
+        {
+            return context.Products.FromSqlRaw($"{DbProcedures.GetProductByID} {productId}").AsEnumerable().FirstOrDefault();
         }
     }
 }

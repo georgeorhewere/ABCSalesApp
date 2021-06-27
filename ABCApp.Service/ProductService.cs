@@ -17,9 +17,15 @@ namespace ABCApp.Service
         {
             abcRepository = dbRepository;            
         }
-        public IQueryable<Product> GetProducts()
+
+        public decimal GetProductPrice(int productId)
         {
-            return abcRepository.GetAll();
+            return abcRepository.GetProductById(productId).Price;
+        }
+
+        public IEnumerable<Product> GetProducts()
+        {
+            return abcRepository.GetProducts();
         }
     }
 }

@@ -13,9 +13,11 @@ namespace ABCApp.Web.Controllers
     public class OrderController : Controller
     {
         private readonly ICountryService countryService;
-        public OrderController(ICountryService _countryService)
+        private readonly IProductService productService;
+        public OrderController(ICountryService _countryService, IProductService _productService)
         {
             countryService = _countryService;
+            productService = _productService;
         }
         // GET: OrderController
         public ActionResult Index()
@@ -38,7 +40,14 @@ namespace ABCApp.Web.Controllers
                                                                 Text = x.CountryName, 
                                                                 Value = x.CountryCode })
                                             .ToList();
-            
+            model.Products = productService.GetProducts()
+                                            .Select(x => new SelectListItem
+                                            {
+                                                Text = $"{x.ProductName} (${x.Price})",
+                                                Value = x.ProductId.ToString()
+                                            })
+                                            .ToList();
+
 
             return View(model);
         }
@@ -136,6 +145,20 @@ namespace ABCApp.Web.Controllers
             }
 
             return Json(cities);
+        }
+
+        [HttpPost]
+        public ActionResult GetSaleTotal(int productId, int quantity)
+        {
+            decimal totalSale = 0;
+            if(productId != null && productId > 0)
+            {
+                decimal productPrice = productService.GetProductPrice(productId);
+                totalSale = productPrice * quantity;
+            }
+
+            return Json(totalSale.ToString());
+
         }
 
 

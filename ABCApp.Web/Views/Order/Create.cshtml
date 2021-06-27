@@ -4,46 +4,83 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>OrderViewModel</h4>
+<h4>Add Product Sale</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-11">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CustomerName" class="control-label"></label>
-                <input asp-for="CustomerName" class="form-control" />
-                <span asp-validation-for="CustomerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Countries" class="control-label"></label>
-                @Html.DropDownListFor(x => x.Countries, Model.Countries, "--Select Country--", new { @id = "ddlCountry", @class = "form-control" })
-                <span asp-validation-for="Countries" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Regions" class="control-label"></label>
-                @Html.DropDownListFor(x => x.Regions, Model.Regions, "--Select Region--", new { @id = "ddlRegion", @class = "form-control" })
-                <span asp-validation-for="Regions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cities" class="control-label"></label>
-                @Html.DropDownListFor(x => x.Cities, Model.Cities, "--Select City --", new { @id = "ddlCity", @class = "form-control" })
-                <span asp-validation-for="Cities" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfSale" class="control-label"></label>
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.DateOfSale, new { @class = "form-control" , @id= "dateOfSale" })
-                    @Html.ValidationMessageFor(model => model.DateOfSale, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CustomerName" class="control-label"></label>
+                        <input asp-for="CustomerName" class="form-control" />
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Countries" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.Countries, Model.Countries, "--Select Country--", new { @id = "ddlCountry", @class = "form-control" })
+                        <span asp-validation-for="Countries" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="DateOfSale" class="control-label"></label>                        
+                        @Html.TextBoxFor(m => m.DateOfSale, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "dateOfSale", placeholder = "Select date of sale" })
+                        @Html.ValidationMessageFor(model => model.DateOfSale, "", new { @class = "text-danger" })
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Regions" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.Regions, Model.Regions, "--Select Region--", new { @id = "ddlRegion", @class = "form-control" })
+                        <span asp-validation-for="Regions" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Products" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.Products, Model.Products, "--Select Product --", new { @id = "ddlProduct", @class = "form-control" })
+                        <span asp-validation-for="Products" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Cities" class="control-label"></label>
+                        @Html.DropDownListFor(x => x.Cities, Model.Cities, "--Select City --", new { @id = "ddlCity", @class = "form-control" })
+                        <span asp-validation-for="Cities" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" id="productQty" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="TotalSale" class="control-label"></label>                        
+                        <input asp-for="TotalSale" asp-format="{0:C}" class="form-control" id="salesTotal" readonly />
+                        <span asp-validation-for="TotalSale" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            
+            
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -100,6 +137,7 @@
                     }
                 });
             });
+
             //date picker
             $("#dateOfSale").datepicker({                
                 changeMonth: true,
@@ -107,6 +145,28 @@
                 format: "dd/mm/yyyy",
                 language: "tr"
             });
+
+            // sales total
+            $('#ddlProduct').change(function () {
+                getTotalSale();
+            });
+            // sales total
+            $('#productQty').change(function () {
+                getTotalSale();
+            });
+
+            function getTotalSale() {
+                $.ajax({
+                    type: "post",
+                    url: "/Order/GetSaleTotal",
+                    data: { productId: $('#ddlProduct').val(), quantity: $('#productQty').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        $('#salesTotal').val(data);
+                    }
+                });            }
+
         });
     </script>
 }

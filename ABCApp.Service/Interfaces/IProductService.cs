@@ -9,6 +9,8 @@ namespace ABCApp.Service.Interfaces
 {
     public interface IProductService
     {
-        IQueryable<Product> GetProducts();
+        IEnumerable<Product> GetProducts();
+
+        decimal GetProductPrice(int productId);
     }
 }

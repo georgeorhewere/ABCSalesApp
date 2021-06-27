@@ -15,6 +15,7 @@ namespace ABCApp.Web.Models
             Countries = new List<SelectListItem>();
             Regions = new List<SelectListItem>();
             Cities = new List<SelectListItem>();
+            Products = new List<SelectListItem>();
         }
         
         //
@@ -32,11 +33,20 @@ namespace ABCApp.Web.Models
         public IList<SelectListItem> Cities { get; set; }        
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         [Required(ErrorMessage = "Quantity Required")]
-        public int Quantity { get; set; }
-        [Required(ErrorMessage = "Date of Sale Required")]
-        [Display(Name = "Date Of Sale")]        
-        public DateTime DateOfSale { get; set; }
+        public int? Quantity { get; set; }
 
-        // public IList<SelectListItem> Products { get; set; }
+        [Required(ErrorMessage = "Date of Sale Required")]
+        [Display(Name = "Date Of Sale")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? DateOfSale { get; set; }
+
+        [Required(ErrorMessage = "Product Required")]
+        [DisplayName("Product")]
+        public IList<SelectListItem> Products { get; set; }
+
+        [Required(ErrorMessage = "Sales Total Required")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
+        public decimal? TotalSale { get; set; }
     }
 }
