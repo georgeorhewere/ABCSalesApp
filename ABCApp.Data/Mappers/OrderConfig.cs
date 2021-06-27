@@ -24,6 +24,7 @@ namespace ABCApp.Data.Mappers
             builder.Property(t => t.ProductId).IsRequired();
             builder.Property(t => t.OrderTotal).HasColumnType("decimal(18,2)")
                 .IsRequired();
+            builder.HasIndex(t => new {t.DateOfSale, t.CountryCode, t.RegionCode, t.CityCode });
 
 
         }

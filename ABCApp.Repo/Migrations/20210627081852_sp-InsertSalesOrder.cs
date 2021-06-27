@@ -15,7 +15,8 @@ namespace ABCApp.Repo.Migrations
                                     @OrderTotal decimal(18,2),
                                     @CountryCode char(3),
                                     @RegionCode char(3),
-                                    @CityCode int                                    
+                                    @CityCode int,
+                                    @OrderId int output   
                           AS
                             BEGIN
                                 -- SET NOCOUNT ON added to prevent extra result sets from
@@ -41,10 +42,11 @@ namespace ABCApp.Repo.Migrations
                                        ,@CityCode
                                        ,@CountryCode)
 
-                                SELECT SCOPE_IDENTITY() AS OrderId
-
+                                SET @OrderId=SCOPE_IDENTITY()
+								RETURN  @OrderId
                             END
                          ";
+            migrationBuilder.Sql(sp);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

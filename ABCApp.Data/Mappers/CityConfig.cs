@@ -18,6 +18,7 @@ namespace ABCApp.Data.Mappers
             builder.Property(t => t.RegionCode).HasColumnType("char").HasMaxLength(3).IsRequired();
             builder.Property(t => t.CityName).HasMaxLength(255).IsRequired();
             builder.HasMany(t => t.OrdersList).WithOne().HasForeignKey(t => t.CityCode).OnDelete(DeleteBehavior.NoAction);
+            
 
         }
     }

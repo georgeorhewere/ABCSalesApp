@@ -9,7 +9,8 @@ namespace ABCApp.Service.Interfaces
 {
     public interface IOrderService
     {
-        void SaveOrder(Order entity);
+        bool SaveOrder(Order entity);
+        IEnumerable<OrderListItem> GetOrderListItems(int? cityCode, DateTime? salesDate, string countryCode = null, string regionCode=null);
 
     }
 }

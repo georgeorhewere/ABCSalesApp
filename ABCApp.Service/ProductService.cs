@@ -20,12 +20,31 @@ namespace ABCApp.Service
 
         public decimal GetProductPrice(int productId)
         {
-            return abcRepository.GetProductById(productId).Price;
+            try
+            {
+                return abcRepository.GetProductById(productId).Price;
+            }
+            catch (Exception ex)
+            {
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Product Price", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return 0;
+            }
         }
 
         public IEnumerable<Product> GetProducts()
         {
-            return abcRepository.GetProducts();
+            try
+            {
+                return abcRepository.GetProducts();
+            }
+            catch (Exception ex)
+            {
+
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Products", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return new List<Product>();
+            }
         }
     }
 }

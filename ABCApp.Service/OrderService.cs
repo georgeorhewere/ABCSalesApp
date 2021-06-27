@@ -17,9 +17,37 @@ namespace ABCApp.Service
         {
             abcRepository = dbRepository;
         }
-        public void SaveOrder(Order entity)
+
+        public IEnumerable<OrderListItem> GetOrderListItems(int? cityCode, DateTime? salesDate, string countryCode = null, string regionCode = null)
         {
-            abcRepository.InsertOrder(entity);
+            try
+            {
+                return abcRepository.GetOrderItems(countryCode, regionCode, cityCode, salesDate);
+            }
+            catch (Exception ex)
+            {
+
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Orders", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return new List<OrderListItem>();
+            }
+
+        }
+
+        public bool SaveOrder(Order entity)
+        {
+            try
+            {
+                abcRepository.InsertOrder(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // save exception to error table                
+                DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Add Order", ErrorOn = DateTime.UtcNow };
+                abcRepository.SaveError(errorObj);
+                return false;
+            }
         }
     }
 }

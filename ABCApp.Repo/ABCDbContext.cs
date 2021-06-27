@@ -17,6 +17,9 @@ namespace ABCApp.Repo
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<DbError> Errors { get; set; }
+        
+        //stored procedure
+        public virtual DbSet<OrderListItem> OrderListItems { get; set; }
         public ABCDbContext(DbContextOptions<ABCDbContext> options) : base(options)
         {
         }
@@ -29,6 +32,7 @@ namespace ABCApp.Repo
             new RegionConfig(modelBuilder.Entity<Region>());
             new CityConfig(modelBuilder.Entity<City>());
             new ErrorConfig(modelBuilder.Entity<DbError>());
+            new OrderListItemConfig(modelBuilder.Entity<OrderListItem>());
         }
         
         

@@ -4,14 +4,16 @@ using ABCApp.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ABCApp.Repo.Migrations
 {
     [DbContext(typeof(ABCDbContext))]
-    partial class ABCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210627122700_addCityRegionOrderIndexes")]
+    partial class addCityRegionOrderIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,35 +132,6 @@ namespace ABCApp.Repo.Migrations
                     b.HasIndex("DateOfSale", "CountryCode", "RegionCode", "CityCode");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("ABCApp.Data.OrderListItem", b =>
-                {
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfSale")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Product")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalSale")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable("OrderListItems");
                 });
 
             modelBuilder.Entity("ABCApp.Data.Product", b =>

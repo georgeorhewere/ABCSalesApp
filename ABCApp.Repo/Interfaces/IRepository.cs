@@ -11,12 +11,13 @@ namespace ABCApp.Repo.Interfaces
     {
         IEnumerable<Product> GetProducts();
         Product GetProductById(int productId);
-
         IEnumerable<Country> GetCountries();
         IEnumerable<Region> GetCountryRegions(string countryCode);
-        IEnumerable<City> GetRegionCities(string regionCode);       
+        IEnumerable<City> GetRegionCities(string regionCode);
+        IEnumerable<OrderListItem> GetOrderItems(string countryCode, string regionCode, int? cityCode, DateTime? salesDate);
+        void InsertOrder(Order entity);
+        void SaveError(DbError error);
 
-        void InsertOrder(Order entity);        
-        
+
     }
 }

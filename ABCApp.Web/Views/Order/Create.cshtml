@@ -4,8 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Add Product Sale</h4>
+<h4>Add Product Order</h4>
 <hr />
+@if (ViewData["Error"] != null)
+{
+    <h4>Error!</h4>
+    <div class="text-danger"> @ViewData["Error"]</div>
+    
+}
+
 <div class="row">
     <div class="col-md-11">
         <form asp-action="Create">
@@ -29,10 +36,10 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label asp-for="DateOfSale" class="control-label"></label>                        
+                        <label asp-for="DateOfSale" class="control-label"></label>
                         @Html.TextBoxFor(m => m.DateOfSale, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "dateOfSale", placeholder = "Select date of sale" })
                         @Html.ValidationMessageFor(model => model.DateOfSale, "", new { @class = "text-danger" })
-                        
+
                     </div>
                 </div>
                 <div class="col">
@@ -69,7 +76,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label asp-for="TotalSale" class="control-label"></label>                        
+                        <label asp-for="TotalSale" class="control-label"></label>
                         <input asp-for="TotalSale" asp-format="{0:C}" class="form-control" id="salesTotal" readonly />
                         <span asp-validation-for="TotalSale" class="text-danger"></span>
                     </div>
@@ -79,8 +86,8 @@
 
 
 
-            
-            
+
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -88,7 +95,6 @@
         </form>
     </div>
 </div>
-
 
 
 @section Scripts {
@@ -139,7 +145,7 @@
             });
 
             //date picker
-            $("#dateOfSale").datepicker({                
+            $("#dateOfSale").datepicker({
                 changeMonth: true,
                 changeYear: true,
                 format: "dd/mm/yyyy",
@@ -165,7 +171,8 @@
                     success: function (data) {
                         $('#salesTotal').val(data);
                     }
-                });            }
+                });
+            }
 
         });
     </script>

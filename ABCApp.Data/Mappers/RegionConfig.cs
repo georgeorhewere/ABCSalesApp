@@ -19,6 +19,7 @@ namespace ABCApp.Data.Mappers
             builder.Property(t => t.CountryCode).HasColumnType("char").HasMaxLength(3).IsRequired();
             builder.HasMany(t => t.CityList).WithOne().HasForeignKey(t => t.RegionCode);
             builder.HasMany(t => t.OrdersList).WithOne().HasForeignKey(t => t.RegionCode).OnDelete(DeleteBehavior.NoAction);
+            
         }
     }
 }

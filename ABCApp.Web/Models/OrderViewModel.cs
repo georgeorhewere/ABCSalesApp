@@ -46,7 +46,7 @@ namespace ABCApp.Web.Models
         public IList<SelectListItem> Products { get; set; }
 
         [Required(ErrorMessage = "Sales Total Required")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal? TotalSale { get; set; }
     }
 }

@@ -26,7 +26,22 @@ namespace ABCApp.Web.Controllers
         // GET: OrderController
         public ActionResult Index()
         {
-            return View();
+            List<OrderListItemViewModel> orderItemsModels = new List<OrderListItemViewModel>();
+            var orders = orderService.GetOrderListItems(null, null, null, null)
+                                                                       .Select(x=>new OrderListItemViewModel { 
+                                                                           CustomerName = x.CustomerName,
+                                                                           Product = x.Product,
+                                                                           DateOfSale = x.DateOfSale,
+                                                                           Quantity = x.Quantity,
+                                                                           Country = x.Country,
+                                                                           Region = x.Region,
+                                                                           City = x.City,
+                                                                           TotalSale = x.TotalSale                                                                                               
+                                                                         }).ToList();
+            if (orders.Any())
+                orderItemsModels = orders;
+
+            return View(orderItemsModels);
         }
 
         // GET: OrderController/Details/5
@@ -61,8 +76,25 @@ namespace ABCApp.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+            ViewData["Error"] = null;
+           var retModel = new OrderViewModel();
+            retModel.Countries = countryService.GetCountries()
+                                .Select(x => new SelectListItem
+                                {
+                                    Text = x.CountryName,
+                                    Value = x.CountryCode
+                                })
+                                .ToList();
+            retModel.Products = productService.GetProducts()
+                                            .Select(x => new SelectListItem
+                                            {
+                                                Text = $"{x.ProductName} (${x.Price})",
+                                                Value = x.ProductId.ToString(),
+                                            }).ToList();
+
             try
-            {
+            {                
+
                 if (ModelState.IsValid)
                 {
                     // Save order
@@ -76,21 +108,48 @@ namespace ABCApp.Web.Controllers
                     salesOrder.RegionCode = collection["Regions"];
                     salesOrder.CityCode = Convert.ToInt32(collection["Cities"]);
                     // redirect to index with Id
-                    orderService.SaveOrder(salesOrder);
-                    return View();
-                    // return RedirectToAction(nameof(Index));
+                    if (orderService.SaveOrder(salesOrder))
+                    {
+                        //redirect to table view
+                        return View();
+                    }
+                    else
+                    {
+                        // redirect to prev page
+                        var model = new OrderViewModel();
+                        model.CustomerName = salesOrder.CustomerName;                        
+                        model.DateOfSale = salesOrder.DateOfSale;                        
+                        model.Countries = countryService.GetCountries()
+                                            .Select(x => new SelectListItem
+                                            {
+                                                Text = x.CountryName,
+                                                Value = x.CountryCode,
+                                                Selected = x.CountryCode == salesOrder.CountryCode
+                                            })
+                                            .ToList();
+                        model.Products = productService.GetProducts()
+                                                        .Select(x => new SelectListItem
+                                                        {
+                                                            Text = $"{x.ProductName} (${x.Price})",
+                                                            Value = x.ProductId.ToString(),
+                                                            Selected = x.ProductId == salesOrder.ProductId
+                                                        }).ToList();
+                        
+                        ViewData["Error"] = "There was an error saving your order information. Please try again later.";                        
 
+                        return View(model);
+                    }                   
                 }
                 else
                 {
-                    return View();
-                }
-
-                
+                    ViewData["Error"] = "The form data submitted is not valid. Please update the form and try again.";
+                    return View(retModel);                    
+                }                
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewData["Error"] = "An unexpected error occurred. Please try again later";
+                return View(retModel);
             }
         }
 
