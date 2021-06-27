@@ -14,11 +14,9 @@ namespace ABCApp.Repo.Interfaces
 
         IEnumerable<Country> GetCountries();
         IEnumerable<Region> GetCountryRegions(string countryCode);
-        IEnumerable<City> GetRegionCities(string regionCode);
+        IEnumerable<City> GetRegionCities(string regionCode);       
 
+        void InsertOrder(Order entity);        
         
-
-        void Insert(Order entity);        
-        void SaveChanges();
     }
 }

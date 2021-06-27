@@ -1,10 +1,12 @@
-﻿using ABCApp.Service.Interfaces;
+﻿using ABCApp.Data;
+using ABCApp.Service.Interfaces;
 using ABCApp.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,10 +16,12 @@ namespace ABCApp.Web.Controllers
     {
         private readonly ICountryService countryService;
         private readonly IProductService productService;
-        public OrderController(ICountryService _countryService, IProductService _productService)
+        private readonly IOrderService orderService;
+        public OrderController(ICountryService _countryService, IProductService _productService, IOrderService _orderService)
         {
             countryService = _countryService;
             productService = _productService;
+            orderService = _orderService;
         }
         // GET: OrderController
         public ActionResult Index()
@@ -62,9 +66,19 @@ namespace ABCApp.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     // Save order
+                    Order salesOrder = new Order();
+                    salesOrder.CustomerName = collection["CustomerName"];
+                    salesOrder.ProductId = Convert.ToInt32(collection["Products"]);
+                    salesOrder.Quantity = Convert.ToInt32(collection["Quantity"]);
+                    salesOrder.DateOfSale = DateTime.ParseExact(collection["DateOfSale"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    salesOrder.OrderTotal = Convert.ToDecimal(collection["TotalSale"]);
+                    salesOrder.CountryCode = collection["Countries"];
+                    salesOrder.RegionCode = collection["Regions"];
+                    salesOrder.CityCode = Convert.ToInt32(collection["Cities"]);
                     // redirect to index with Id
-
-                    return RedirectToAction(nameof(Index));
+                    orderService.SaveOrder(salesOrder);
+                    return View();
+                    // return RedirectToAction(nameof(Index));
 
                 }
                 else

@@ -33,7 +33,7 @@ namespace ABCApp.Web
             services.AddScoped(typeof(IRepository), typeof(ABCRepository));
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICountryService, CountryService>();
-            //services.AddTransient<IUserProfileService, UserProfileService>();
+            services.AddTransient<IOrderService, OrderService>();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

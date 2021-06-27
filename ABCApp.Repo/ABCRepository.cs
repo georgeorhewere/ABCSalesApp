@@ -1,6 +1,7 @@
 ﻿using ABCApp.Data;
 using ABCApp.Repo.Interfaces;
 using ABCApp.Repo.StoredProcedures;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,14 +38,41 @@ namespace ABCApp.Repo
             return context.Cities.FromSqlRaw($"{DbProcedures.LoadCities} {regionCode}").ToList();
         }
 
-        public void Insert(Order entity)
+        public void InsertOrder(Order entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<SqlParameter> insertParams = new List<SqlParameter>
+                                    { 
+                                        // Create parameters    
+                                        new SqlParameter { ParameterName = "@CustomerName", Value = entity.CustomerName },
+                                        new SqlParameter { ParameterName = "@DateOfSale", Value = entity.DateOfSale },
+                                        new SqlParameter { ParameterName = "@ProductId", Value = entity.ProductId },
+                                        new SqlParameter { ParameterName = "@Quantity", Value = entity.Quantity },
+                                        new SqlParameter { ParameterName = "@OrderTotal", Value = entity.OrderTotal },
+                                        new SqlParameter { ParameterName = "@CountryCode", Value = entity.CountryCode },
+                                        new SqlParameter { ParameterName = "@RegionCode", Value = entity.RegionCode },
+                                        new SqlParameter { ParameterName = "@CityCode", Value = entity.CityCode },
+                                        new SqlParameter { ParameterName = "@OrderId", SqlDbType=System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output, Size = Int32.MaxValue }
+                                        };                
+                int affectedRows = context.Database.ExecuteSqlRaw($"{DbProcedures.SaveOrderInfo} @CustomerName, @DateOfSale, @ProductId, @Quantity, @OrderTotal, @CountryCode, @RegionCode, @CityCode, @OrderId", insertParams.ToArray());
+
+                var OrderId = insertParams.Where(x => x.ParameterName == "@OrderId").FirstOrDefault().Value;
+
+                SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // save exception to error table
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+
+
         }
 
-        public void SaveChanges()
+        private void SaveChanges()
         {
-            throw new NotImplementedException();
+            context.SaveChangesAsync();
         }
 
         public Product GetProductById(int productId)
