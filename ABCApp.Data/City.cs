@@ -6,7 +6,7 @@ namespace ABCApp.Data
     {
         public int CityCode { get; set; }
         public string CityName { get; set; }        
-        public string RegionCode { get; set; }
+        public int RegionId { get; set; }
         public ICollection<Order> OrdersList { get; set; }
     }
 }

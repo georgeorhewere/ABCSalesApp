@@ -104,8 +104,8 @@ namespace ABCApp.Web.Controllers
                     salesOrder.Quantity = Convert.ToInt32(collection["Quantity"]);
                     salesOrder.DateOfSale = DateTime.ParseExact(collection["DateOfSale"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     salesOrder.OrderTotal = Convert.ToDecimal(collection["TotalSale"]);
-                    salesOrder.CountryCode = collection["Countries"];
-                    salesOrder.RegionCode = collection["Regions"];
+                    salesOrder.CountryId = Convert.ToInt32(collection["Countries"]);
+                    salesOrder.RegionId = Convert.ToInt32(collection["Regions"]);
                     salesOrder.CityCode = Convert.ToInt32(collection["Cities"]);
                     // redirect to index with Id
                     if (orderService.SaveOrder(salesOrder))
@@ -124,7 +124,7 @@ namespace ABCApp.Web.Controllers
                                             {
                                                 Text = x.CountryName,
                                                 Value = x.CountryCode,
-                                                Selected = x.CountryCode == salesOrder.CountryCode
+                                                Selected = x.CountryId == salesOrder.CountryId
                                             })
                                             .ToList();
                         model.Products = productService.GetProducts()

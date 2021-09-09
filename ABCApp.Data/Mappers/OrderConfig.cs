@@ -17,14 +17,14 @@ namespace ABCApp.Data.Mappers
             builder.HasKey(t => t.OrderId);
             builder.Property(t => t.CustomerName).HasMaxLength(255).IsRequired();
             builder.Property(t => t.DateOfSale).IsRequired();
-            builder.Property(t => t.CountryCode).HasColumnType("char").HasMaxLength(3).IsRequired();
+            builder.Property(t => t.CountryId).IsRequired();
             builder.Property(t => t.CityCode).IsRequired();
             builder.Property(t => t.Quantity).IsRequired();
-            builder.Property(t => t.RegionCode).HasColumnType("char").HasMaxLength(3).IsRequired();
+            builder.Property(t => t.RegionId).IsRequired();
             builder.Property(t => t.ProductId).IsRequired();
             builder.Property(t => t.OrderTotal).HasColumnType("decimal(18,2)")
                 .IsRequired();
-            builder.HasIndex(t => new {t.DateOfSale, t.CountryCode, t.RegionCode, t.CityCode });
+            builder.HasIndex(t => new {t.DateOfSale, t.CountryId, t.RegionId, t.CityCode });
 
 
         }

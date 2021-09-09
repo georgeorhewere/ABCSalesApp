@@ -10,9 +10,9 @@ namespace ABCApp.Data
         public int Quantity { get; set; }
         public DateTime DateOfSale { get; set; }
         public decimal OrderTotal { get; set; }
-        public string RegionCode { get; set; }
+        public int RegionId { get; set; }
         public int CityCode { get; set; }
-        public string CountryCode { get; set; }        
+        public int CountryId { get; set; }        
         
     }
 }

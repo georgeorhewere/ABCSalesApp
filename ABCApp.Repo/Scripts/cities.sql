@@ -1,0 +1,5 @@
+SET ANSI_PADDING OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Master_Country] ON
+

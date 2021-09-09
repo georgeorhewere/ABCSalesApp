@@ -48,8 +48,8 @@ namespace ABCApp.Repo
                                         new SqlParameter { ParameterName = "@ProductId", Value = entity.ProductId },
                                         new SqlParameter { ParameterName = "@Quantity", Value = entity.Quantity },
                                         new SqlParameter { ParameterName = "@OrderTotal", Value = entity.OrderTotal },
-                                        new SqlParameter { ParameterName = "@CountryCode", Value = entity.CountryCode },
-                                        new SqlParameter { ParameterName = "@RegionCode", Value = entity.RegionCode },
+                                        new SqlParameter { ParameterName = "@CountryCode", Value = entity.CountryId },
+                                        new SqlParameter { ParameterName = "@RegionCode", Value = entity.RegionId },
                                         new SqlParameter { ParameterName = "@CityCode", Value = entity.CityCode },
                                         new SqlParameter { ParameterName = "@OrderId", SqlDbType=System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output, Size = Int32.MaxValue }
                                         };

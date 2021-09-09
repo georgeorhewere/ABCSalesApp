@@ -14,11 +14,11 @@ namespace ABCApp.Data.Mappers
         {
             builder.ToTable("Master_Region");
             builder.Property(t => t.RegionCode).HasColumnType("char").HasMaxLength(3);
-            builder.HasKey(t => t.RegionCode);            
+            builder.HasKey(t => t.RegionId);            
             builder.Property(t => t.RegionName).HasMaxLength(255).IsRequired();
-            builder.Property(t => t.CountryCode).HasColumnType("char").HasMaxLength(3).IsRequired();
-            builder.HasMany(t => t.CityList).WithOne().HasForeignKey(t => t.RegionCode);
-            builder.HasMany(t => t.OrdersList).WithOne().HasForeignKey(t => t.RegionCode).OnDelete(DeleteBehavior.NoAction);
+            builder.Property(t => t.CountryId).IsRequired();
+            builder.HasMany(t => t.CityList).WithOne().HasForeignKey(t => t.RegionId);
+            builder.HasMany(t => t.OrdersList).WithOne().HasForeignKey(t => t.RegionId).OnDelete(DeleteBehavior.NoAction);
             
         }
     }
