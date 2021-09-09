@@ -256,3 +256,5 @@ INSERT INTO [dbo].Master_Country
 (244, 'YU', 'Yugoslavia'),
 (245, 'ZM', 'Zambia'),
 (246, 'ZW', 'Zimbabwe');
+
+SET IDENTITY_INSERT [dbo].[Master_Country] OFF
