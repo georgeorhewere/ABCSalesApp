@@ -12,6 +12,8 @@ namespace ABCApp.Repo.Migrations
             migrationBuilder.Sql(File.ReadAllText(sqlFile));
             var sqlStateFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Scripts/states.sql");
             migrationBuilder.Sql(File.ReadAllText(sqlStateFile));
+            var sqlCityFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Scripts/cities.sql");
+            migrationBuilder.Sql(File.ReadAllText(sqlCityFile));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

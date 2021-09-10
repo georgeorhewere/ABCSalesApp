@@ -7,11 +7,11 @@ namespace ABCApp.Repo.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var sp = @"CREATE PROCEDURE [dbo].[GetCountryRegions]
-                    @CountryCode char(3)
+                    @CountryId int
                 AS
                 BEGIN
                     SET NOCOUNT ON;
-                    Select * from Master_Region where CountryCode like @CountryCode +'%'
+                    Select * from Master_Region where CountryId = @CountryId 
                     Order By RegionName
                 END";
 
