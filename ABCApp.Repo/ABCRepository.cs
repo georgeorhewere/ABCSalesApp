@@ -30,7 +30,8 @@ namespace ABCApp.Repo
 
         public IEnumerable<Region> GetCountryRegions(string countryCode)
         {
-            return context.Regions.FromSqlRaw($"{DbProcedures.LoadRegions} {countryCode}").ToList();
+            int countryId = Convert.ToInt32(countryCode);
+            return context.Regions.FromSqlRaw($"{DbProcedures.LoadRegions} {countryId}").ToList();
         }
 
         public IEnumerable<City> GetRegionCities(string regionCode)

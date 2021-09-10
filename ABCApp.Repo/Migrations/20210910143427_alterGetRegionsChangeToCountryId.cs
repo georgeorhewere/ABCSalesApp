@@ -2,21 +2,20 @@
 
 namespace ABCApp.Repo.Migrations
 {
-    public partial class spGetCountryRegions : Migration
+    public partial class alterGetRegionsChangeToCountryId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @"CREATE PROCEDURE [dbo].[GetCountryRegions]
-                    @CountryCode char(3)
+            var sp = @"ALTER PROCEDURE [dbo].[GetCountryRegions]
+                    @CountryId int
                 AS
                 BEGIN
                     SET NOCOUNT ON;
-                    Select * from Master_Region where CountryCode like @CountryCode +'%'
+                    Select * from Master_Region where CountryId = @CountryId
                     Order By RegionName
                 END";
 
             migrationBuilder.Sql(sp);
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

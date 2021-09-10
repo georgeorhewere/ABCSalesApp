@@ -57,7 +57,7 @@ namespace ABCApp.Web.Controllers
             model.Countries = countryService.GetCountries()
                                             .Select(x => new SelectListItem { 
                                                                 Text = x.CountryName, 
-                                                                Value = x.CountryCode })
+                                                                Value = x.CountryId.ToString() })
                                             .ToList();
             model.Products = productService.GetProducts()
                                             .Select(x => new SelectListItem
@@ -82,7 +82,7 @@ namespace ABCApp.Web.Controllers
                                 .Select(x => new SelectListItem
                                 {
                                     Text = x.CountryName,
-                                    Value = x.CountryCode
+                                    Value = x.CountryId.ToString()
                                 })
                                 .ToList();
             retModel.Products = productService.GetProducts()
@@ -123,7 +123,7 @@ namespace ABCApp.Web.Controllers
                                             .Select(x => new SelectListItem
                                             {
                                                 Text = x.CountryName,
-                                                Value = x.CountryCode,
+                                                Value = x.CountryId.ToString(),
                                                 Selected = x.CountryId == salesOrder.CountryId
                                             })
                                             .ToList();
