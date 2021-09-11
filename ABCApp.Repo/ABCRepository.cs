@@ -36,7 +36,8 @@ namespace ABCApp.Repo
 
         public IEnumerable<City> GetRegionCities(string regionCode)
         {
-            return context.Cities.FromSqlRaw($"{DbProcedures.LoadCities} {regionCode}").ToList();
+            int regionId = Convert.ToInt32(regionCode);
+            return context.Cities.FromSqlRaw($"{DbProcedures.LoadCities} {regionId}").ToList();
         }
 
         public void InsertOrder(Order entity)
