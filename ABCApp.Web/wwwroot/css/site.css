@@ -99,6 +99,7 @@ body {
 a.nav-link {
     font-family: Open-sans;
     font-size: 1rem;
+    padding-left:4rem !important;
 }
 
 .primary-col-1 {
@@ -110,4 +111,31 @@ a.nav-link {
 .primary-col-3 {
     color: #DC3545;
 }
+.status-content {
+    display : inline-flex;
+    height:100%;
+}
+.status-info {    
+  /*  width: 100%; */ 
+}
+
+.status-count {
+    font-family: Open-sans-bold;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.status-type {
+    font-family: Open-sans;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.status-type {
+}
+
 
