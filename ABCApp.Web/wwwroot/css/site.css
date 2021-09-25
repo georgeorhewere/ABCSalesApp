@@ -99,6 +99,15 @@ body {
 a.nav-link {
     font-family: Open-sans;
     font-size: 1rem;
+}
 
+.primary-col-1 {
+    color: #006BE0;
+}
+.primary-col-2 {
+    color: #28A745;
+}
+.primary-col-3 {
+    color: #DC3545;
 }
 
