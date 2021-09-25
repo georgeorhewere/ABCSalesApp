@@ -69,3 +69,36 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Site Fonts */
+@font-face {
+    font-family: 'Open-sans-bold';
+    src: url('/lib/fonts/Open_Sans/OpenSans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'Open-sans';
+    src: url('/lib/fonts/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'lato';
+    src: url('/lib/fonts/Lato/Lato-Regular.ttf');
+}
+@font-face {
+    font-family: 'lato-bold';
+    src: url('/lib/fonts/Lato/Lato-Bold.ttf');
+}
+
+/* Site Fonts */
+.site-logo{
+    font-family: Open-sans-bold;
+    font-size:1.5rem;
+
+}
+
+a.nav-link {
+    font-family: Open-sans;
+    font-size: 1rem;
+}
+
