@@ -94,11 +94,56 @@ body {
 .site-logo{
     font-family: Open-sans-bold;
     font-size:1.5rem;
-
 }
 
 a.nav-link {
     font-family: Open-sans;
     font-size: 1rem;
+    padding-left:4rem !important;
 }
+
+.primary-col-1 {
+    color: #006BE0;
+}
+.primary-col-2 {
+    color: #28A745;
+}
+.primary-col-3 {
+    color: #DC3545;
+}
+.status-content {
+    display : inline-flex;
+    height:100%;
+}
+.status-info {    
+  /*  width: 100%; */ 
+  padding-top: 1rem;
+  padding-bottom:1rem;
+
+}
+.fixed-navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:5;
+}
+.status-count {
+    font-family: Open-sans-bold;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.status-type {
+    font-family: Open-sans;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.status-type {
+}
+
 
