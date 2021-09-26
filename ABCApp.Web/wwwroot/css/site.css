@@ -117,8 +117,16 @@ a.nav-link {
 }
 .status-info {    
   /*  width: 100%; */ 
-}
+  padding-top: 1rem;
+  padding-bottom:1rem;
 
+}
+.fixed-navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:5;
+}
 .status-count {
     font-family: Open-sans-bold;
     font-size: 2rem;
