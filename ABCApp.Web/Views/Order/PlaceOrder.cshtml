@@ -1,4 +1,4 @@
-﻿
+﻿@model ABCApp.Web.Models.OrderViewModel
 @{
     ViewData["Title"] = "Place Order";
 }
@@ -25,19 +25,7 @@
                 <input type="text" name="customer-name" placeholder="Customer Name">
             </div>
 
-            @*<div class="column field">
-                    <label>Country</label>
-                    <input id="drpCountry" style="width: 100%;" />
-                    <div class="ui fluid search selection dropdown">
-                        <input type="hidden" name="country">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Select Country</div>
-                        <div class="menu">
-                            <div class="item" data-value="af">Afghanistan</div>
-                        </div>
-
-                    </div>
-                </div>*@
+            @* -- country -- *@
             <div class="column field">
                 <label>Country</label>
                 <div class="ui fluid search selection dropdown">
@@ -45,19 +33,15 @@
                     <i class="dropdown icon"></i>
                     <div class="default text">Select Country</div>
                     <div class="menu">
-                        <div class="item" data-value="af">Afghanistan</div>
+                    @foreach (var item in Model.Countries)
+                    {
+                        <div class="item" data-value="@item.Value"><i class="@item.Text.ToLower() flag" ></i>@item.Text</div>
+                    }
                     </div>
                 </div>
             </div>
 
-            @*<div class="column field">
-                    <label>State</label>
-                    <select class="ui fluid dropdown" id="state">
-                        <option value="">- State -</option>
-                        <option value="AL">Alabama</option>
-                    </select>
-
-                </div>*@
+            @* -- state -- *@
             <div class=" column field">
                 <label>State</label>
                 <select class="ui fluid dropdown">
@@ -65,6 +49,8 @@
                     <option value="AL">Alabama</option>
                 </select>
             </div>
+
+            @* -- city -- *@
             <div class=" column field">
                 <label>City</label>
                 <select class="ui fluid dropdown">
@@ -73,10 +59,9 @@
                 </select>
             </div>
 
-            @*<div class="column field">
-                    <label>City</label>
-                    <input id="drpCity" style="width: 100%;" />
-                </div>*@
+        </div>
+
+        <div class="row four fields">
 
         </div>
 
@@ -90,16 +75,9 @@
 {
     <script src="~/lib/semantic-ui/semantic.min.js"></script>
     <script src="~/lib/datepicker/datepicker.js"></script>
+    <script src="~/js/formcontrols.js"></script>
     <script>
-        $(function () {
 
-            // initialize dropdowns
-            $('.ui.dropdown')
-                .dropdown();
-            //datepicker
-            $('.datepicker').datepicker();
-
-        })
 
 
     </script>
