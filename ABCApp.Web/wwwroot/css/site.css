@@ -159,7 +159,7 @@ a.nav-link {
 /* Create four equal columns */
 .column {
     flex: 25%;
-    padding: 20px;
+    padding: 1rem;
 }
 
 /* On screens that are 992px wide or less, go from four columns to two columns */

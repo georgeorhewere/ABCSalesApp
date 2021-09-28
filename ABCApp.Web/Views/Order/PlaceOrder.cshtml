@@ -2,38 +2,101 @@
 @{
     ViewData["Title"] = "Place Order";
 }
-@section Styles {
-
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/semantic-ui/semantic.min.css" />
 }
 
-    <div class="container pt-5 mt-5">
-        <h1 class="section-header">New Sale</h1>
+<div class="container pt-5 mt-5">
+    <h1 class="section-header">New Sale</h1>
 
-        <div class="p-2">
-            <div class="col">
-                <input id="txtOrderDate" style="width: 30%;" />
+
+    <form class="ui form">
+        <div class="row four fields">
+            <div class="column field">
+                <label>Date of sale</label>
+                <input type="text" name="date-of-sale" placeholder="Date of sale">
             </div>
         </div>
-        <div class="row p-2">
-            <div class="column">
-                <input id="txtCustomer" style="width: 100%;" />
+        <div class="row four fields">
+            <div class="column field">
+                <label>Customer Name</label>
+                <input type="text" name="customer-name" placeholder="Customer Name">
             </div>
-            <div class="column">
-                <input id="drpCountry" style="width: 100%;" />
+
+            @*<div class="column field">
+            <label>Country</label>
+            <input id="drpCountry" style="width: 100%;" />
+            <div class="ui fluid search selection dropdown">
+                <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select Country</div>
+                <div class="menu">
+                    <div class="item" data-value="af">Afghanistan</div>
+                </div>
+
             </div>
-            <div class="column">
-                <input id="drpState" style="width: 100%;" />
+        </div>*@
+            <div class="column field">
+                <label>Country</label>
+                <div class="ui fluid search selection dropdown">
+                    <input type="hidden" name="country">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Country</div>
+                    <div class="menu">
+                        <div class="item" data-value="af">Afghanistan</div>
+                    </div>
+                </div>
             </div>
-            <div class="column">
+
+            @*<div class="column field">
+            <label>State</label>
+            <select class="ui fluid dropdown" id="state">
+                <option value="">- State -</option>
+                <option value="AL">Alabama</option>
+            </select>
+
+        </div>*@
+            <div class=" column field">
+                <label>State</label>
+                <select class="ui fluid dropdown">
+                    <option value="">State</option>
+                    <option value="AL">Alabama</option>
+                </select>
+            </div>
+            <div class=" column field">
+                <label>City</label>
+                <select class="ui fluid dropdown">
+                    <option value="">City</option>
+                    <option value="AL">Alabama</option>
+                </select>
+            </div>
+
+            @*<div class="column field">
+                <label>City</label>
                 <input id="drpCity" style="width: 100%;" />
-            </div>
+            </div>*@
+
         </div>
 
-    </div>
+        
+
+    </form>
+</div>
 
 
-    @section Scripts
+@section Scripts
 {
+    <script src="~/lib/semantic-ui/semantic.min.js"></script>
+    <script>
+        $(function () {
+
+            // initialize dropdowns
+            $('.ui.dropdown')
+                .dropdown();
+        })
 
 
-    }
+    </script>
+
+}
