@@ -2,10 +2,38 @@
 @{
     ViewData["Title"] = "Place Order";
 }
+@section Styles {
 
-<div class="container pt-5 mt-5">
-    <h1 class="section-header">New Sale</h1>
+}
+
+    <div class="container pt-5 mt-5">
+        <h1 class="section-header">New Sale</h1>
+
+        <div class="p-2">
+            <div class="col">
+                <input id="txtOrderDate" style="width: 30%;" />
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="column">
+                <input id="txtCustomer" style="width: 100%;" />
+            </div>
+            <div class="column">
+                <input id="drpCountry" style="width: 100%;" />
+            </div>
+            <div class="column">
+                <input id="drpState" style="width: 100%;" />
+            </div>
+            <div class="column">
+                <input id="drpCity" style="width: 100%;" />
+            </div>
+        </div>
+
+    </div>
 
 
+    @section Scripts
+{
 
-</div>
+
+    }
