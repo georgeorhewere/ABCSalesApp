@@ -234,21 +234,6 @@ namespace ABCApp.Web.Controllers
 
         }
 
-       public ActionResult PlaceOrder()
-        {
-            var model = new OrderViewModel();
-            model.Countries = countryService.GetCountries()
-                                            .Select(x => new SelectListItem
-                                            {
-                                                Text = x.CountryName,
-                                                Value = x.CountryId.ToString()
-                                            })
-                                            .ToList();
-            
-
-
-            return View(model);
-
-        }
+      
     }
 }

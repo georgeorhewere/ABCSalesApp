@@ -160,6 +160,10 @@ a.nav-link {
 .column {
     flex: 25%;    
 }
+.column>label{
+    font-size: 1.05rem !important;
+    font-family: Open-sans-bold;
+}
 
 /* On screens that are 992px wide or less, go from four columns to two columns */
 @media screen and (max-width: 992px) {
