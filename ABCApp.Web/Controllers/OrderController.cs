@@ -15,12 +15,11 @@ namespace ABCApp.Web.Controllers
     public class OrderController : Controller
     {
         private readonly ICountryService countryService;
-        private readonly IProductService productService;
+        
         private readonly IOrderService orderService;
-        public OrderController(ICountryService _countryService, IProductService _productService, IOrderService _orderService)
+        public OrderController(ICountryService _countryService, IOrderService _orderService)
         {
-            countryService = _countryService;
-            productService = _productService;
+            countryService = _countryService;            
             orderService = _orderService;
         }
         // GET: OrderController
@@ -59,13 +58,7 @@ namespace ABCApp.Web.Controllers
                                                                 Text = x.CountryName, 
                                                                 Value = x.CountryId.ToString() })
                                             .ToList();
-            model.Products = productService.GetProducts()
-                                            .Select(x => new SelectListItem
-                                            {
-                                                Text = $"{x.ProductName} (${x.Price})",
-                                                Value = x.ProductId.ToString()
-                                            })
-                                            .ToList();
+           
 
 
             return View(model);
@@ -85,12 +78,12 @@ namespace ABCApp.Web.Controllers
                                     Value = x.CountryId.ToString()
                                 })
                                 .ToList();
-            retModel.Products = productService.GetProducts()
-                                            .Select(x => new SelectListItem
-                                            {
-                                                Text = $"{x.ProductName} (${x.Price})",
-                                                Value = x.ProductId.ToString(),
-                                            }).ToList();
+            //retModel.Products = productService.GetProducts()
+            //                                .Select(x => new SelectListItem
+            //                                {
+            //                                    Text = $"{x.ProductName} (${x.Price})",
+            //                                    Value = x.ProductId.ToString(),
+                                    //        }).ToList();
 
             try
             {                
@@ -127,13 +120,13 @@ namespace ABCApp.Web.Controllers
                                                 Selected = x.CountryId == salesOrder.CountryId
                                             })
                                             .ToList();
-                        model.Products = productService.GetProducts()
-                                                        .Select(x => new SelectListItem
-                                                        {
-                                                            Text = $"{x.ProductName} (${x.Price})",
-                                                            Value = x.ProductId.ToString(),
-                                                            Selected = x.ProductId == salesOrder.ProductId
-                                                        }).ToList();
+                        //model.Products = productService.GetProducts()
+                        //                                .Select(x => new SelectListItem
+                        //                                {
+                        //                                    Text = $"{x.ProductName} (${x.Price})",
+                        //                                    Value = x.ProductId.ToString(),
+                        //                                    Selected = x.ProductId == salesOrder.ProductId
+                        //                                }).ToList();
                         
                         ViewData["Error"] = "There was an error saving your order information. Please try again later.";                        
 
@@ -226,7 +219,7 @@ namespace ABCApp.Web.Controllers
             decimal totalSale = 0;
             if(productId != null && productId > 0)
             {
-                decimal productPrice = productService.GetProductPrice(productId);
+                decimal productPrice = 0;
                 totalSale = productPrice * quantity;
             }
 
