@@ -19,6 +19,9 @@ namespace ABCApp.Data.Mappers
             builder.Property(t => t.Price)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+            builder.Property(t => t.Description);
+            builder.Property(t => t.Tags);
+            builder.HasIndex(t => t.ProductName);
         }
         
     }
