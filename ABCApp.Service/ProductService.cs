@@ -11,9 +11,9 @@ namespace ABCApp.Service
 {
     public class ProductService : IProductService
     {
-        private IRepository abcRepository;        
+        private IProductRepository abcRepository;        
 
-        public ProductService(IRepository dbRepository)
+        public ProductService(IProductRepository dbRepository)
         {
             abcRepository = dbRepository;            
         }
@@ -27,7 +27,7 @@ namespace ABCApp.Service
             catch (Exception ex)
             {
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Product Price", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                //abcRepository.SaveError(errorObj);
                 return 0;
             }
         }
@@ -42,7 +42,7 @@ namespace ABCApp.Service
             {
 
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Products", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                //abcRepository.SaveError(errorObj);
                 return new List<Product>();
             }
         }

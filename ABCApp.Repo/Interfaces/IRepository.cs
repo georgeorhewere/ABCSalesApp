@@ -9,8 +9,7 @@ namespace ABCApp.Repo.Interfaces
 {
     public interface IRepository
     {
-        IEnumerable<Product> GetProducts();
-        Product GetProductById(int productId);
+      
         IEnumerable<Country> GetCountries();
         IEnumerable<Region> GetCountryRegions(string countryCode);
         IEnumerable<City> GetRegionCities(string regionCode);
