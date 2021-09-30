@@ -16,6 +16,8 @@ namespace ABCApp.Web.Controllers
         {
             productService = _productService;
         }
+
+        // GET: /Products/
         public IEnumerable<ProductViewModel> Index()
         {
             var products = productService.GetProducts()

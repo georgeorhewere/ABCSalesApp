@@ -24,6 +24,7 @@
     <ProjectReference Include="..\ABCApp.Data\ABCApp.Data.csproj" />
     <ProjectReference Include="..\ABCApp.Repo\ABCApp.Repo.csproj" />
     <ProjectReference Include="..\ABCApp.Service\ABCApp.Service.csproj" />
+    <ProjectReference Include="..\ABCApp.Web\ABCApp.Web.csproj" />
   </ItemGroup>
 
 </Project>
