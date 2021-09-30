@@ -31,11 +31,13 @@ namespace ABCApp.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<ABCDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            // why scoped ?
-            services.AddScoped(typeof(IRepository), typeof(ABCRepository));
+            
+            // scoped => created per web request => available till the end of this request
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            services.AddScoped(typeof(ICountryRepository), typeof(CountryRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 
-            //why transient ?
+            // transient => creeated when injected or requested. -> very short life time
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IOrderService, OrderService>();           

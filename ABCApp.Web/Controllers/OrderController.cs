@@ -14,9 +14,9 @@ namespace ABCApp.Web.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly ICountryService countryService;
-        
+        private readonly ICountryService countryService;        
         private readonly IOrderService orderService;
+
         public OrderController(ICountryService _countryService, IOrderService _orderService)
         {
             countryService = _countryService;            

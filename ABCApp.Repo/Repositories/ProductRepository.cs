@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace ABCApp.Repo.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : BaseRepository, IProductRepository
     {
-        private readonly ABCDbContext context;
-        public ProductRepository(ABCDbContext _context)
+        
+        public ProductRepository(ABCDbContext _context) : base(_context)
         {
-            context = _context;
+            
         }
 
         public Product GetProductById(int productId)
