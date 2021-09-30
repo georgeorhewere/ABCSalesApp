@@ -18,17 +18,17 @@ namespace ABCApp.Web.Controllers
         }
 
         // GET: /Products/
-        public IEnumerable<ProductViewModel> Index()
+        public DropDownViewModel Index()
         {
             var products = productService.GetProducts()
-                                           .Select(x => new ProductViewModel
+                                           .Select(x => new DropDownItemViewModel
                                            {
-                                               Id= x.ProductId,
-                                               ProductName= x.ProductName,
-                                               Price = x.Price
+                                               Value= x.ProductId,
+                                               Name= x.ProductName,
+                                               Text = x.ProductName
                                            })
                                            .ToList();
-            return products;
+            return new DropDownViewModel(products){ Success = true };
         }
     }
 }

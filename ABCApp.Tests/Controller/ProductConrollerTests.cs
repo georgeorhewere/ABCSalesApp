@@ -24,12 +24,12 @@ namespace ABCApp.Tests.Controller
 
             //Assert
             //Not Empty
-            Assert.NotEmpty(products);
+            Assert.NotEmpty(products.Results);
             // product view model type 
-            Assert.IsType<List<ProductViewModel>>(products);
+            Assert.IsType<DropDownViewModel>(products);
 
             //count = 5
-            Assert.Equal(5, products.Count());
+            Assert.Equal(5, products.Results.Count());
             // verify called
             productService.VerifyGetProducts(Times.Once());
 

@@ -1,7 +1,19 @@
 ﻿$(function () {
     // initialize dropdowns
-    $('.ui.dropdown')
+    $('.country.ui.dropdown')
         .dropdown();
+    $('.state.ui.dropdown')
+        .dropdown();
+    $('.city.ui.dropdown')
+        .dropdown();
+    $('.products.ui.dropdown')
+        .dropdown({
+            apiSettings: {
+                // this url parses query server side and returns filtered results
+                url: '/product/'
+            },            
+            filterRemoteData: true
+        })
     //datepicker
     $('.datepicker').datepicker({
         autoHide: true,
