@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mocks\Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ABCApp.Data\ABCApp.Data.csproj" />
     <ProjectReference Include="..\ABCApp.Repo\ABCApp.Repo.csproj" />
     <ProjectReference Include="..\ABCApp.Service\ABCApp.Service.csproj" />

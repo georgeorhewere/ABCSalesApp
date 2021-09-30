@@ -18,10 +18,6 @@ namespace ABCApp.Repo
         {
             context = _context;
         }
-        public IEnumerable<Product> GetProducts()
-        {
-            return context.Products.FromSqlRaw($"{DbProcedures.LoadProducts}").ToList();
-        }
 
         public IEnumerable<Country> GetCountries()
         {
@@ -64,12 +60,7 @@ namespace ABCApp.Repo
         private void SaveChanges()
         {
             context.SaveChangesAsync();
-        }
-
-        public Product GetProductById(int productId)
-        {
-            return context.Products.FromSqlRaw($"{DbProcedures.GetProductByID} {productId}").AsEnumerable().FirstOrDefault();
-        }
+        }        
 
         public void SaveError(DbError error)
         {

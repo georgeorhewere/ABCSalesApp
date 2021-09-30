@@ -40,8 +40,4 @@
     <ProjectReference Include="..\ABCApp.Data\ABCApp.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

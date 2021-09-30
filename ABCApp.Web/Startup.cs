@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using ABCApp.Repo.Interfaces;
 using ABCApp.Service.Interfaces;
 using ABCApp.Service;
+using ABCApp.Repo.Repositories;
 
 namespace ABCApp.Web
 {
@@ -30,7 +31,11 @@ namespace ABCApp.Web
         {
             services.AddControllersWithViews();
             services.AddDbContext<ABCDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // why scoped ?
             services.AddScoped(typeof(IRepository), typeof(ABCRepository));
+            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
+            //why transient ?
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IOrderService, OrderService>();           
