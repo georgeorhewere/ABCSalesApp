@@ -21,6 +21,12 @@ namespace ABCApp.Tests.Mocks
             return this;
         }
 
+        public MockProductService VerifyGetProducts(Times times)
+        {
+            Verify(x => x.GetProducts(), times);
+            return this;
+        }
+
 
 
     }

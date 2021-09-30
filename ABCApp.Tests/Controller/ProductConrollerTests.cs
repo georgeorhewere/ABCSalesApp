@@ -30,9 +30,8 @@ namespace ABCApp.Tests.Controller
 
             //count = 5
             Assert.Equal(5, products.Count());
-
-
-
+            // verify called
+            productService.VerifyGetProducts(Times.Once());
 
         }
     }
