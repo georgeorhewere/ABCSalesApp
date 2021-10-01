@@ -6,20 +6,74 @@
                 // this url parses query server side and returns filtered results
                 url: '/country/countries',
                 onSuccess: function (response) {
-                    // valid response and response.success = true                 
+                    // valid response and response.success = true 
+                    var countries = response.results;
                     for (var i = 0; i < countries.length; i++) {
                         $("#country-menu").append('<div class="item" data-value="' + countries[i].value + '"><i class="' + ("" + countries[i].name).toLowerCase() + ' flag"></i>' + countries[i].text + '</div>')
                     }
-
                 }
             },
             filterRemoteData: true,
             onChange: (value, text, $choice) => {
-            console.log("Dropdown changed ")
+                $('#state').dropdown('clear');
+                $('#city').dropdown('clear');
+                $('#state').parent().addClass('loading'); 
+                
+                $.ajax({
+                    type: "post",
+                    url: "/Order/GetRegions",
+                    data: { countryCode: value },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        $("#state").empty()
+                        $("#state").append("<option value='' selected='selected'>-- select state --</option>")
+                        for (var i = 0; i < data.length; i++) {
+                            $("#state").append('<option value="'
+                                + data[i].value + '">'
+                                + data[i].text + '</option>')
+                        }
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $('#state').parent().removeClass('loading');
+                        }, 1000);
+                    }
+
+                });
             }
         });
     $('.state.ui.dropdown')
-        .dropdown();
+        .dropdown({
+
+            onChange: (value, text, $choice) => {
+                $('#city').dropdown('clear');
+                $('#city').parent().addClass('loading');
+
+                $.ajax({
+                    type: "post",
+                    url: "/Order/GetCities",
+                    data: { regionCode: value },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        $("#city").empty()
+                        $("#city").append("<option value='' selected='selected'>-- select city --</option>")
+                        for (var i = 0; i < data.length; i++) {
+                            $("#city").append('<option value="'
+                                + data[i].value + '">'
+                                + data[i].text + '</option>')
+                        }
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $('#city').parent().removeClass('loading');
+                        }, 1000);
+                    }
+                });
+            }
+
+        });
     $('.city.ui.dropdown')
         .dropdown();
     $('.products.ui.dropdown')
@@ -36,65 +90,8 @@
     });
     //set to current date
     $('.datepicker').datepicker('pick');
+  
 
-    $('#country').change(function ()
-    {        
-        $('#state').dropdown('clear');        
-        $('#city').dropdown('clear');
-        $('#state').parent().addClass('loading'); 
-
-        $.ajax({
-            type: "post",
-            url: "/Order/GetRegions",
-            data: { countryCode: $('#country').val() },
-            datatype: "json",
-            traditional: true,
-            success: function (data) {
-                $("#state").empty()
-                $("#state").append("<option value='' selected='selected'>-- select state --</option>")
-                for (var i = 0; i < data.length; i++) {
-                    $("#state").append('<option value="'
-                        + data[i].value + '">'
-                        + data[i].text + '</option>')
-                }
-            },
-            complete: function ()
-            {
-                setTimeout(() => {
-                    $('#state').parent().removeClass('loading');
-                }, 1000);                
-            }
-           
-        });
-    });
-
-    $('#state').change(function () {
-        
-        $('#city').dropdown('clear');        
-        $('#city').parent().addClass('loading');
-
-        $.ajax({
-            type: "post",
-            url: "/Order/GetCities",
-            data: { regionCode: $('#state').val() },
-            datatype: "json",
-            traditional: true,
-            success: function (data) {
-                $("#city").empty()
-                $("#city").append("<option value='' selected='selected'>-- select city --</option>")
-                for (var i = 0; i < data.length; i++) {
-                    $("#city").append('<option value="'
-                        + data[i].value + '">'
-                        + data[i].text + '</option>')
-                }
-            },
-            complete: function () {
-                setTimeout(() => {
-                    $('#city').parent().removeClass('loading');
-                }, 1000);
-            }
-        });
-    });
 
 
 })
