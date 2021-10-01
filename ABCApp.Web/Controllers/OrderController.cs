@@ -194,8 +194,8 @@ namespace ABCApp.Web.Controllers
             List<SelectListItem> regions = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(countryCode))
             {
-                var countryRegions = countryService.GetRegions(countryCode).Select(x => new SelectListItem { Text = x.RegionName, Value = x.RegionId.ToString() }).ToList();
-                regions = regions.Concat(countryRegions).ToList();
+                // var countryRegions = countryService.GetRegions(countryCode).Select(x => new SelectListItem { Text = x.RegionName, Value = x.RegionId.ToString() }).ToList();
+                // regions = regions.Concat(countryRegions).ToList();
             }
             return Json(regions);
         }

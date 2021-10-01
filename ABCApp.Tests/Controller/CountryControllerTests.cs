@@ -35,5 +35,41 @@ namespace ABCApp.Tests.Controller
 
         }
 
+
+
+        [Fact]
+        public void CountryController_GetRegions_ReturnsEmptyListForInvalidId()
+        {
+            //Arrange
+            int countryId = 10;
+            var countryMockService = new MockCountryService().MockGetRegions(countryId);
+            var countryController = new CountryController(countryMockService.Object);
+
+            //Act
+            var regions = countryController.Regions(countryId);
+
+            //Assert
+            Assert.Empty(regions);
         }
+
+        [Fact]
+        public void CountryController_GetRegions_ReturnsListForValidId()
+        {
+            //Arrange
+            int countryId = 5;
+            var countryMockService = new MockCountryService().MockGetRegions(countryId);
+            var countryController = new CountryController(countryMockService.Object);
+
+            //Act
+            var regions = countryController.Regions(countryId);
+
+            //Assert
+            Assert.NotEmpty(regions);
+
+            //  returns 1 region            
+            Assert.Single(regions);
+        }
+
+
+    }
 }

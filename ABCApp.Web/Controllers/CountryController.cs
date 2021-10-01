@@ -30,5 +30,18 @@ namespace ABCApp.Web.Controllers
 
             return model;
         }
+
+        public IEnumerable<DropDownItemViewModel> Regions(int countryId)
+        {
+            List<DropDownItemViewModel> regions = new List<DropDownItemViewModel>();
+            regions = countryService.GetRegions(countryId).Select(r => 
+                                                                    new DropDownItemViewModel { 
+                                                                    Name = r.RegionName,
+                                                                    Value = r.RegionId,
+                                                                    Text = r.RegionName
+                                                                    }).ToList();
+            return regions;
+        }
+
     }
 }

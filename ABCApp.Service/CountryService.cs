@@ -46,15 +46,11 @@ namespace ABCApp.Service
             }
         }
 
-        public IEnumerable<Region> GetRegions(string countryCode)
+        public IEnumerable<Region> GetRegions(int countryId)
         {
             try
             {
-                // check country coe is valid
-                // if not valid return empty list
-                // if valid return list
-
-                return countryRepository.GetCountryRegions(countryCode);
+                return countryRepository.GetCountryRegions(countryId);
             }
             catch (Exception ex)
             {

@@ -23,5 +23,17 @@ namespace ABCApp.Tests.Mocks.Services
             Verify(x => x.GetCountries(), times);
             return this;
         }
+
+
+        public MockCountryService MockGetRegions(int countryId)
+        {
+            var mockCountryRepo = new MockCountryRepository()
+                .MockGetRegions(countryId);
+
+            Setup(x => x.GetRegions(It.IsAny<int>()))
+                .Returns(mockCountryRepo.Object.GetCountryRegions(countryId));
+
+            return this;
+        }
     }
 }

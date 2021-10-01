@@ -10,7 +10,7 @@ namespace ABCApp.Repo.Interfaces
     public interface ICountryRepository
     {
         IEnumerable<Country> GetCountries();
-        IEnumerable<Region> GetCountryRegions(string countryCode);
+        IEnumerable<Region> GetCountryRegions(int countryId);
         IEnumerable<City> GetRegionCities(string regionCode);
     }
 }

@@ -26,17 +26,57 @@ namespace ABCApp.Tests.Services
 
             // not empty
             Assert.NotEmpty(countries);
-            
+
             // is List of Countries
             Assert.IsType<List<Country>>(countries);
-            
+
             // count =5
             Assert.Equal(5, countries.Count());
-            
+
             //verify called -- may not needed in this case
             countryMockRepo.VerifyGetCountries(Times.Once());
         }
 
+
+        [Fact]
+        public void CountryService_GetRegions_ReturnsEmptyListForInvalidId()
+        {
+            // Arrange
+            int testCountryId = 7;
+            var countryMockRepo = new MockCountryRepository()
+                                        .MockGetRegions(testCountryId);
+            var countryService = new CountryService(countryMockRepo.Object);
+
+            // Act
+            // invalid Id -- 7
+            var regions = countryService.GetRegions(testCountryId);
+            //Assert
+            Assert.Empty(regions);
+
+        }
+
+        [Fact]
+        public void CountryService_GetRegions_ReturnsListForValidId()
+        {
+            // Arrange
+            int testCountryId = 1;
+            var countryMockRepo = new MockCountryRepository()
+                                        .MockGetRegions(testCountryId);
+            var countryService = new CountryService(countryMockRepo.Object);
+
+            // Act
+            // valid Id -- 1
+            var regions = countryService.GetRegions(testCountryId);
+
+            //Assert
+            //Not empty
+            Assert.NotEmpty(regions);
+            // return 2 states
+            Assert.Equal(2, regions.Count());
+            //type is list of region
+            Assert.IsType<List<Region>>(regions);
+
+        }
 
     }
 }

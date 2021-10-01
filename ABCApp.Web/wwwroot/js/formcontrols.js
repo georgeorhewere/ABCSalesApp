@@ -20,9 +20,9 @@
                 $('#state').parent().addClass('loading'); 
                 
                 $.ajax({
-                    type: "post",
-                    url: "/Order/GetRegions",
-                    data: { countryCode: value },
+                    type: "get",
+                    url: "/country/regions",
+                    data: { countryId: value },
                     datatype: "json",
                     traditional: true,
                     success: function (data) {

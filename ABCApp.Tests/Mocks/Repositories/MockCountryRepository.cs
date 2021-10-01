@@ -1,6 +1,7 @@
 ﻿using ABCApp.Data;
 using ABCApp.Repo.Interfaces;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,6 +27,7 @@ namespace ABCApp.Tests.Mocks.Repositories
             new Region { RegionId = 4, CountryId = 2, RegionName= "Delvine" },
             new Region { RegionId = 5, CountryId = 5, RegionName= "La Massana" },
         };
+               
 
         private readonly List<City> cities = new()
         {
@@ -48,6 +50,14 @@ namespace ABCApp.Tests.Mocks.Repositories
         public MockCountryRepository VerifyGetCountries(Times times)
         {
             Verify(x => x.GetCountries(), times);
+            return this;
+        }
+
+        public MockCountryRepository MockGetRegions(int countryId)
+        {
+            Setup(x => x.GetCountryRegions(It.IsAny<int>()))
+                .Returns(regions.Where(r => r.CountryId == countryId).ToList());
+
             return this;
         }
 

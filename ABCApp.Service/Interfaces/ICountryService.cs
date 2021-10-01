@@ -10,7 +10,7 @@ namespace ABCApp.Service.Interfaces
     public interface ICountryService
     {
         IEnumerable<Country> GetCountries();
-        IEnumerable<Region> GetRegions(string countryCode);
+        IEnumerable<Region> GetRegions(int countryCode);
         IEnumerable<City> GetCities(string regionCode);
     }
 }

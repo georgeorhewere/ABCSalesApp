@@ -22,9 +22,8 @@ namespace ABCApp.Repo.Repositories
             return context.Countries.FromSqlRaw($"{DbProcedures.LoadCountries}").ToList();
         }
 
-        public IEnumerable<Region> GetCountryRegions(string countryCode)
-        {
-            int countryId = Convert.ToInt32(countryCode);
+        public IEnumerable<Region> GetCountryRegions(int countryId)
+        {            
             return context.Regions.FromSqlRaw($"{DbProcedures.LoadRegions} {countryId}").ToList();
         }
 
