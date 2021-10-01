@@ -3,282 +3,86 @@
 @{
     ViewData["Title"] = "Create";
 }
-@section Styles {
-    <!-- Vendor CSS-->
-    <link href="~/lib/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="~/lib/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="~/css/form-view.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
-
-}
-
-<h4>Add Product Order</h4>
-<hr />
-@if (ViewData["Error"] != null)
+@section Styles
 {
-    <h4>Error!</h4>
-    <div class="text-danger"> @ViewData["Error"]</div>
+    <link rel="stylesheet" href="~/lib/semantic-ui/semantic.min.css" />
+    <link rel="stylesheet" href="~/lib/datepicker/datepicker.css" />
 
 }
 
-<div class="page-wrapper p-t-30 p-b-100 font-poppins">
-    <div class="wrapper wrapper--w680">
-
-        <div class="card card-4">
-            <div class="card-body">
+<div class="container pt-5 mt-5">
+    <h1 class="section-header">New Sale</h1>
 
 
-                <div class="row">
-                    <div class="col-md-11">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="row">
-                                <div class="col">
-                                    
-                                    <div class="form-group">
-                                        <label asp-for="CustomerName" class="control-label"></label>
-                                        <input asp-for="CustomerName" class="form-control" />
-                                        <span asp-validation-for="CustomerName" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="Countries" class="control-label"></label>
-                                        @Html.DropDownListFor(x => x.Countries, Model.Countries, "--Select Country--", new { @id = "ddlCountry", @class = "form-control" })
-                                        <span asp-validation-for="Countries" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="DateOfSale" class="control-label"></label>
-                                        @Html.TextBoxFor(m => m.DateOfSale, "{0:MM/dd/yyyy}", new { @class = "input--style-4 js-datepicker", @id = "dateOfSale", placeholder = "Select date of sale" })
-                                        @Html.ValidationMessageFor(model => model.DateOfSale, "", new { @class = "text-danger" })
-
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="Regions" class="control-label"></label>
-                                        @Html.DropDownListFor(x => x.Regions, Model.Regions, "--Select Region--", new { @id = "ddlRegion", @class = "form-control" })
-                                        <span asp-validation-for="Regions" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="Products" class="control-label"></label>
-                                        @Html.DropDownListFor(x => x.Products, Model.Products, "--Select Product --", new { @id = "ddlProduct", @class = "form-control" })
-                                        <span asp-validation-for="Products" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="Cities" class="control-label"></label>
-                                        @Html.DropDownListFor(x => x.Cities, Model.Cities, "--Select City --", new { @id = "ddlCity", @class = "form-control" })
-                                        <span asp-validation-for="Cities" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="Quantity" class="control-label"></label>
-                                        <input asp-for="Quantity" class="form-control" id="productQty" />
-                                        <span asp-validation-for="Quantity" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label asp-for="TotalSale" class="control-label"></label>
-                                        <input asp-for="TotalSale" asp-format="{0:C}" class="form-control" id="salesTotal" readonly />
-                                        <span asp-validation-for="TotalSale" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-                <h2 class="title">Registration Form</h2>
-                <form method="POST">
-                    <div class="row row-space">
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">first name</label>
-                                <input class="input--style-4" type="text" name="first_name">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">last name</label>
-                                <input class="input--style-4" type="text" name="last_name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-space">
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">Birthday</label>
-                                <div class="input-group-icon">
-                                    <input class="input--style-4 js-datepicker" type="text" name="birthday">
-                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">Gender</label>
-                                <div class="p-t-10">
-                                    <label class="radio-container m-r-45">
-                                        Male
-                                        <input type="radio" checked="checked" name="gender">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="radio-container">
-                                        Female
-                                        <input type="radio" name="gender">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row row-space">
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">Email</label>
-                                <input class="input--style-4" type="email" name="email">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label class="label">Phone Number</label>
-                                <input class="input--style-4" type="text" name="phone">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label class="label">Subject</label>
-                        <div class="rs-select2 js-select-simple select--no-search">
-                            <select name="subject">
-                                <option disabled="disabled" selected="selected">Choose option</option>
-                                <option>Subject 1</option>
-                                <option>Subject 2</option>
-                                <option>Subject 3</option>
-                            </select>
-                            <div class="select-dropdown"></div>
-                        </div>
-                    </div>
-                    <div class="p-t-15">
-                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
-                    </div>
-                </form>
+    <form class="ui form">
+        <div class="row four fields">
+            <div class="column field">
+                <label>Date of sale</label>
+                <input type="text" class="datepicker" name="date-of-sale" placeholder="Date of sale">
             </div>
         </div>
-    </div>
+        <div class="row four fields">
+            <div class="column field">
+                <label>Customer Name</label>
+                <input type="text" name="customer-name" placeholder="Customer Name">
+            </div>
+
+            @* -- country -- *@
+            <div class="column field">
+                <label>Country</label>
+                <div class="country ui fluid search selection dropdown">
+                    <input type="hidden" name="country" id="country">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Country</div>
+                    <div class="menu">
+                        @foreach (var item in Model.Countries)
+                        {
+                            <div class="item" data-value="@item.Value"><i class="@item.Text.ToLower() flag"></i>@item.Text</div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @* -- state -- *@
+            <div class=" column field">
+                <label>State</label>
+                <select class="state ui fluid dropdown" id="state">
+                    <option value="">select state</option>
+                </select>
+            </div>
+
+            @* -- city -- *@
+            <div class=" column field">
+                <label>City</label>
+                <select class="city ui fluid dropdown" id="city">
+                    <option value="">select city</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row two fields">
+            @* -- product auto complete -- *@
+            <div class=" column field">
+                <div class="products ui search fluid selection dropdown">
+                    <input type="hidden" name="product" id="product">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">scan or search product</div>
+                    <div class="menu">
+                       
+                    </div>
+                </div>
+            </div>           
+        </div>
+
+
+</form>
 </div>
 
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <!-- Vendor JS-->
-    <script src="~/lib/select2/select2.min.js"></script>
-    <script src="~/lib/datepicker/moment.min.js"></script>
-    <script src="~/lib/datepicker/daterangepicker.js"></script>
-    <script src="~/js/formcontrols.js" asp-append-version="true"></script>
-    <!-- Bootstrap DatePicker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- Bootstrap DatePicker -->
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // country change
-            $('#ddlCountry').change(function () {
-                $.ajax({
-                    type: "post",
-                    url: "/Order/GetRegions",
-                    data: { countryCode: $('#ddlCountry').val() },
-                    datatype: "json",
-                    traditional: true,
-                    success: function (data) {
-                        $("#ddlRegion").empty()
-                        $("#ddlRegion").append("<option value='' selected='selected'>-- Select Region --</option>")
-                        for (var i = 0; i < data.length; i++) {
-                            $("#ddlRegion").append('<option value="'
-                                + data[i].value + '">'
-                                + data[i].text + '</option>')
-                        }
-
-
-                    }
-                });
-            });
-            //region change
-            $('#ddlRegion').change(function () {
-                $.ajax({
-                    type: "post",
-                    url: "/Order/GetCities",
-                    data: { regionCode: $('#ddlRegion').val() },
-                    datatype: "json",
-                    traditional: true,
-                    success: function (data) {
-                        $("#ddlCity").empty()
-                        $("#ddlCity").append("<option value='' selected='selected'>-- Select City --</option>")
-                        for (var i = 0; i < data.length; i++) {
-                            $("#ddlCity").append('<option value="'
-                                + data[i].value + '">'
-                                + data[i].text + '</option>')
-                        }
-
-
-                    }
-                });
-            });
-
-            //date picker
-            //$("#dateOfSale").datepicker({
-            //    changeMonth: true,
-            //    changeYear: true,
-            //    format: "dd/mm/yyyy",
-            //    language: "tr"
-            //});
-
-            // sales total
-            $('#ddlProduct').change(function () {
-                getTotalSale();
-            });
-            // sales total
-            $('#productQty').change(function () {
-                getTotalSale();
-            });
-
-            function getTotalSale() {
-                // vaalidate input b4 calculation
-
-                $.ajax({
-                    type: "post",
-                    url: "/Order/GetSaleTotal",
-                    data: { productId: $('#ddlProduct').val(), quantity: $('#productQty').val() },
-                    datatype: "json",
-                    traditional: true,
-                    success: function (data) {
-                        $('#salesTotal').val(data);
-                    }
-                });
-            }
-
-        });
-    </script>
+@section Scripts
+{
+    <script src="~/lib/semantic-ui/semantic.min.js"></script>
+    <script src="~/lib/datepicker/datepicker.js"></script>
+    <script src="~/js/formcontrols.js"></script>
 }

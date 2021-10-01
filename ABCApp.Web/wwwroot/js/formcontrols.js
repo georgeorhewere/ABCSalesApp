@@ -1,71 +1,85 @@
-﻿(function ($) {
-    'use strict';
-    /*==================================================================
-        [ Daterangepicker ]*/
-    try {
-        $('.js-datepicker').daterangepicker({
-            "singleDatePicker": true,
-            "showDropdowns": true,
-            "autoUpdateInput": false,
-            locale: {
-                format: 'DD/MM/YYYY'
+﻿$(function () {
+    // initialize dropdowns
+    $('.country.ui.dropdown')
+        .dropdown();
+    $('.state.ui.dropdown')
+        .dropdown();
+    $('.city.ui.dropdown')
+        .dropdown();
+    $('.products.ui.dropdown')
+        .dropdown({
+            apiSettings: {
+                // this url parses query server side and returns filtered results
+                url: '/product/'
+            },            
+            filterRemoteData: true
+        })
+    //datepicker
+    $('.datepicker').datepicker({
+        autoHide: true,
+    });
+    //set to current date
+    $('.datepicker').datepicker('pick');
+
+    $('#country').change(function ()
+    {        
+        $('#state').dropdown('clear');        
+        $('#city').dropdown('clear');
+        $('#state').parent().addClass('loading'); 
+
+        $.ajax({
+            type: "post",
+            url: "/Order/GetRegions",
+            data: { countryCode: $('#country').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                $("#state").empty()
+                $("#state").append("<option value='' selected='selected'>-- select state --</option>")
+                for (var i = 0; i < data.length; i++) {
+                    $("#state").append('<option value="'
+                        + data[i].value + '">'
+                        + data[i].text + '</option>')
+                }
             },
+            complete: function ()
+            {
+                setTimeout(() => {
+                    $('#state').parent().removeClass('loading');
+                }, 1000);                
+            }
+           
         });
+    });
 
-        var myCalendar = $('.js-datepicker');
-        var isClick = 0;
+    $('#state').change(function () {
+        
+        $('#city').dropdown('clear');        
+        $('#city').parent().addClass('loading');
 
-        $(window).on('click', function () {
-            isClick = 0;
-        });
-
-        $(myCalendar).on('apply.daterangepicker', function (ev, picker) {
-            isClick = 0;
-            $(this).val(picker.startDate.format('DD/MM/YYYY'));
-
-        });
-
-        $('.js-btn-calendar').on('click', function (e) {
-            e.stopPropagation();
-
-            if (isClick === 1) isClick = 0;
-            else if (isClick === 0) isClick = 1;
-
-            if (isClick === 1) {
-                myCalendar.focus();
+        $.ajax({
+            type: "post",
+            url: "/Order/GetCities",
+            data: { regionCode: $('#state').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                $("#city").empty()
+                $("#city").append("<option value='' selected='selected'>-- select city --</option>")
+                for (var i = 0; i < data.length; i++) {
+                    $("#city").append('<option value="'
+                        + data[i].value + '">'
+                        + data[i].text + '</option>')
+                }
+            },
+            complete: function () {
+                setTimeout(() => {
+                    $('#city').parent().removeClass('loading');
+                }, 1000);
             }
         });
-
-        $(myCalendar).on('click', function (e) {
-            e.stopPropagation();
-            isClick = 1;
-        });
-
-        $('.daterangepicker').on('click', function (e) {
-            e.stopPropagation();
-        });
+    });
 
 
-    } catch (er) { console.log(er); }
-    /*[ Select 2 Config ]
-        ===========================================================*/
-
-    try {
-        var selectSimple = $('.js-select-simple');
-
-        selectSimple.each(function () {
-            var that = $(this);
-            var selectBox = that.find('select');
-            var selectDropdown = that.find('.select-dropdown');
-            selectBox.select2({
-                dropdownParent: selectDropdown
-            });
-        });
-
-    } catch (err) {
-        console.log(err);
-    }
-
-
-})(jQuery);
+})
 

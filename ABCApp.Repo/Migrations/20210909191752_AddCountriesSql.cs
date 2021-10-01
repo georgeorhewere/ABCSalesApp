@@ -18,6 +18,13 @@ namespace ABCApp.Repo.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            var deleteAddress = "Delete From Master_City";
+            migrationBuilder.Sql(deleteAddress);
+            deleteAddress = "Delete From Master_Region";
+            migrationBuilder.Sql(deleteAddress);
+            deleteAddress = "Delete From Master_Country";
+            migrationBuilder.Sql(deleteAddress);
+
 
         }
     }

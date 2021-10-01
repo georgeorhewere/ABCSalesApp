@@ -9,6 +9,14 @@
     {
       "library": "Chart.js@3.5.1",
       "destination": "wwwroot/lib/Chart.js/"
+    },
+    {
+      "library": "semantic-ui@2.4.1",
+      "destination": "wwwroot/lib/semantic-ui/"
+    },
+    {
+      "library": "datepicker@1.0.10",
+      "destination": "wwwroot/lib/datepicker/"
     }
   ]
 }

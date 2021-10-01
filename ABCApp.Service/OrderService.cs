@@ -11,24 +11,24 @@ namespace ABCApp.Service
 {
     public class OrderService : IOrderService
     {
-        private IRepository abcRepository;
+        private IOrderRepository orderRepository;
 
-        public OrderService(IRepository dbRepository)
+        public OrderService(IOrderRepository _orderRepository)
         {
-            abcRepository = dbRepository;
+            orderRepository = _orderRepository;
         }
 
         public IEnumerable<OrderListItem> GetOrderListItems(int? cityCode, DateTime? salesDate, string countryCode = null, string regionCode = null)
         {
             try
             {
-                return abcRepository.GetOrderItems(countryCode, regionCode, cityCode, salesDate);
+                return orderRepository.GetOrderItems(countryCode, regionCode, cityCode, salesDate);
             }
             catch (Exception ex)
             {
 
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Orders", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                // abcRepository.SaveError(errorObj);
                 return new List<OrderListItem>();
             }
 
@@ -38,14 +38,14 @@ namespace ABCApp.Service
         {
             try
             {
-                abcRepository.InsertOrder(entity);
+                orderRepository.InsertOrder(entity);
                 return true;
             }
             catch (Exception ex)
             {
                 // save exception to error table                
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Add Order", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                // abcRepository.SaveError(errorObj);
                 return false;
             }
         }

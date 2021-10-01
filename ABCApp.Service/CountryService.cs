@@ -11,22 +11,22 @@ namespace ABCApp.Service
 {
     public class CountryService : ICountryService
     {
-        private IRepository abcRepository;
-        public CountryService(IRepository _abcRepository)
+        private ICountryRepository countryRepository;
+        public CountryService(ICountryRepository _countryRepository)
         {
-            abcRepository = _abcRepository;
+            countryRepository = _countryRepository;
         }
         public IEnumerable<City> GetCities(string regionCode)
         {
             try
             {
-                return abcRepository.GetRegionCities(regionCode);
+                return countryRepository.GetRegionCities(regionCode);
             }
             catch (Exception ex)
             {
 
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Cities", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                //abcRepository.SaveError(errorObj);
                 return new List<City>();
             }
         }
@@ -35,13 +35,13 @@ namespace ABCApp.Service
         {
             try
             {
-                return abcRepository.GetCountries();
+                return countryRepository.GetCountries();
             }
             catch (Exception ex)
             {
 
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Countries", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+               // abcRepository.SaveError(errorObj);
                 return new List<Country>();
             }
         }
@@ -50,14 +50,19 @@ namespace ABCApp.Service
         {
             try
             {
-                return abcRepository.GetCountryRegions(countryCode);
+                // check country coe is valid
+                // if not valid return empty list
+                // if valid return list
+
+                return countryRepository.GetCountryRegions(countryCode);
             }
             catch (Exception ex)
             {
                 DbError errorObj = new DbError { ErrorDetail = ex.Message, ErrorBy = "Get Regions", ErrorOn = DateTime.UtcNow };
-                abcRepository.SaveError(errorObj);
+                // abcRepository.SaveError(errorObj);
                 return new List<Region>();
             }
         }
+
     }
 }
