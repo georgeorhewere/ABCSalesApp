@@ -4,9 +4,10 @@ namespace ABCApp.Web.Models
 {
     public  class DropDownViewModel
     {
-        public DropDownViewModel(List<DropDownItemViewModel> items)
+        public DropDownViewModel(List<DropDownItemViewModel> items, bool status)
         {
             Results = items;
+            Success = status;
         }
         public bool Success { get; set; }
         public List<DropDownItemViewModel> Results { get; private set; }

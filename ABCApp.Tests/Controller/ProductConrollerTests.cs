@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Moq;
-using ABCApp.Tests.Mocks;
+﻿using ABCApp.Tests.Mocks;
 using ABCApp.Web.Controllers;
 using ABCApp.Web.Models;
+using Moq;
+using System.Linq;
+using Xunit;
 
 namespace ABCApp.Tests.Controller
 {

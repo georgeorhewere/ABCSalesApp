@@ -28,7 +28,8 @@ namespace ABCApp.Web.Controllers
                                                Text = x.ProductName
                                            })
                                            .ToList();
-            return new DropDownViewModel(products){ Success = true };
+
+            return new DropDownViewModel(products, true);
         }
     }
 }

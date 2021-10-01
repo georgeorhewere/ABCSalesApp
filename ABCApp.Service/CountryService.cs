@@ -50,6 +50,10 @@ namespace ABCApp.Service
         {
             try
             {
+                // check country coe is valid
+                // if not valid return empty list
+                // if valid return list
+
                 return countryRepository.GetCountryRegions(countryCode);
             }
             catch (Exception ex)
@@ -59,5 +63,6 @@ namespace ABCApp.Service
                 return new List<Region>();
             }
         }
+
     }
 }
