@@ -34,11 +34,8 @@
                     <input type="hidden" name="country" id="country">
                     <i class="dropdown icon"></i>
                     <div class="default text">Select Country</div>
-                    <div class="menu">
-                        @foreach (var item in Model.Countries)
-                        {
-                            <div class="item" data-value="@item.Value"><i class="@item.Text.ToLower() flag"></i>@item.Text</div>
-                        }
+                    <div class="menu" id="country-menu">
+                        
                     </div>
                 </div>
             </div>

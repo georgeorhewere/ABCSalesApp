@@ -1,7 +1,23 @@
 ﻿$(function () {
     // initialize dropdowns
     $('.country.ui.dropdown')
-        .dropdown();
+        .dropdown({
+            apiSettings: {
+                // this url parses query server side and returns filtered results
+                url: '/country/countries',
+                onSuccess: function (response) {
+                    // valid response and response.success = true                 
+                    for (var i = 0; i < countries.length; i++) {
+                        $("#country-menu").append('<div class="item" data-value="' + countries[i].value + '"><i class="' + ("" + countries[i].name).toLowerCase() + ' flag"></i>' + countries[i].text + '</div>')
+                    }
+
+                }
+            },
+            filterRemoteData: true,
+            onChange: (value, text, $choice) => {
+            console.log("Dropdown changed ")
+            }
+        });
     $('.state.ui.dropdown')
         .dropdown();
     $('.city.ui.dropdown')
