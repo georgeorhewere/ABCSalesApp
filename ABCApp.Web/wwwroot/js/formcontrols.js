@@ -82,7 +82,28 @@
                 // this url parses query server side and returns filtered results
                 url: '/product/'
             },            
-            filterRemoteData: true
+            filterRemoteData: true,
+            onChange: (value, text, $choice) => {
+                //query product info 
+                $.ajax({
+                    type: "post",
+                    url: "/product/productbyid",
+                    data: { productId: value },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data)
+                        $('.order-items').append(data)
+
+                    },
+                    complete: function () {
+                        setTimeout(() => {
+                            $('#city').parent().removeClass('loading');
+                        }, 1000);
+                    }
+                });
+
+            }
         })
     //datepicker
     $('.datepicker').datepicker({

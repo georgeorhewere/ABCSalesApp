@@ -26,19 +26,19 @@ namespace ABCApp.Web.Controllers
         public ActionResult Index()
         {
             List<OrderListItemViewModel> orderItemsModels = new List<OrderListItemViewModel>();
-            var orders = orderService.GetOrderListItems(null, null, null, null)
-                                                                       .Select(x=>new OrderListItemViewModel { 
-                                                                           CustomerName = x.CustomerName,
-                                                                           Product = x.Product,
-                                                                           DateOfSale = x.DateOfSale,
-                                                                           Quantity = x.Quantity,
-                                                                           Country = x.Country,
-                                                                           Region = x.Region,
-                                                                           City = x.City,
-                                                                           TotalSale = x.TotalSale                                                                                               
-                                                                         }).ToList();
-            if (orders.Any())
-                orderItemsModels = orders;
+            //var orders = orderService.GetOrderListItems(null, null, null, null)
+            //                                                           .Select(x=>new OrderListItemViewModel { 
+            //                                                               CustomerName = x.CustomerName,
+            //                                                               Product = x.Product,
+            //                                                               DateOfSale = x.DateOfSale,
+            //                                                               Quantity = x.Quantity,
+            //                                                               Country = x.Country,
+            //                                                               Region = x.Region,
+            //                                                               City = x.City,
+            //                                                               TotalSale = x.TotalSale                                                                                               
+            //                                                             }).ToList();
+            //if (orders.Any())
+            //    orderItemsModels = orders;
 
             return View(orderItemsModels);
         }
@@ -180,8 +180,6 @@ namespace ABCApp.Web.Controllers
                 return View();
             }
         }
-
-
 
        
     }

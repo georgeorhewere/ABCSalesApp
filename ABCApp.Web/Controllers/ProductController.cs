@@ -1,10 +1,7 @@
 ﻿using ABCApp.Service.Interfaces;
 using ABCApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ABCApp.Web.Controllers
 {
@@ -31,5 +28,21 @@ namespace ABCApp.Web.Controllers
 
             return new DropDownViewModel(products, true);
         }
+
+
+        public IActionResult ProductById(int productId)
+        {
+            OrderListItemViewModel model = new OrderListItemViewModel() 
+                                                    {
+                                                         ProductId = 24,
+                                                         Name = "SkyRun Washing Maching",
+                                                         UnitPrice = 23.54m,
+                                                         Quantity = 1                                                         
+                                                    };
+
+
+            return PartialView("_OrderItem",model) ;
+        }
+
     }
 }
