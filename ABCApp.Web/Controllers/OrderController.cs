@@ -53,13 +53,6 @@ namespace ABCApp.Web.Controllers
         public ActionResult Create()
         {
             var model = new OrderViewModel();
-            model.Countries = countryService.GetCountries()
-                                            .Select(x => new SelectListItem { 
-                                                                Text = x.CountryName, 
-                                                                Value = x.CountryId.ToString() })
-                                            .ToList();
-           
-
 
             return View(model);
         }
@@ -188,35 +181,8 @@ namespace ABCApp.Web.Controllers
             }
         }
 
-     
 
-        [HttpPost]
-        public ActionResult GetCities(string regionCode)
-        {
-            List<SelectListItem> cities = new List<SelectListItem>();
-            if (!string.IsNullOrEmpty(regionCode))
-            {
-              //  var regionCities = countryService.GetCities(regionCode).Select(x => new SelectListItem { Text = x.CityName, Value = x.CityCode.ToString() }).ToList();
-               // cities = cities.Concat(regionCities).ToList();
-            }
 
-            return Json(cities);
-        }
-
-        [HttpPost]
-        public ActionResult GetSaleTotal(int productId, int quantity)
-        {
-            decimal totalSale = 0;
-            if(productId != null && productId > 0)
-            {
-                decimal productPrice = 0;
-                totalSale = productPrice * quantity;
-            }
-
-            return Json(totalSale.ToString());
-
-        }
-
-      
+       
     }
 }

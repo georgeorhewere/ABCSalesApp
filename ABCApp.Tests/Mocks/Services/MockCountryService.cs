@@ -1,7 +1,7 @@
 ﻿using ABCApp.Service.Interfaces;
 using ABCApp.Tests.Mocks.Repositories;
 using Moq;
-
+using System;
 
 namespace ABCApp.Tests.Mocks.Services
 {
@@ -32,6 +32,17 @@ namespace ABCApp.Tests.Mocks.Services
 
             Setup(x => x.GetRegions(It.IsAny<int>()))
                 .Returns(mockCountryRepo.Object.GetCountryRegions(countryId));
+
+            return this;
+        }
+
+        public MockCountryService MockGetCities(int regionId)
+        {
+            var mockCountryRepo = new MockCountryRepository()
+                    .MockGetCities(regionId);
+
+            Setup(x => x.GetCities(It.IsAny<int>()))
+                .Returns(mockCountryRepo.Object.GetRegionCities(regionId));
 
             return this;
         }

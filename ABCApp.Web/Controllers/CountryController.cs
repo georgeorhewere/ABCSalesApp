@@ -33,7 +33,7 @@ namespace ABCApp.Web.Controllers
             return model;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IEnumerable<DropDownItemViewModel> Regions(int countryId)
         {
             List<DropDownItemViewModel> regions = new List<DropDownItemViewModel>();
@@ -46,5 +46,18 @@ namespace ABCApp.Web.Controllers
             return regions;
         }
 
+        [HttpPost]
+        public IEnumerable<DropDownItemViewModel> Cities(int regionId)
+        {
+            List<DropDownItemViewModel> cities = new List<DropDownItemViewModel>();
+            cities = countryService.GetCities(regionId).Select(c =>
+                                                                    new DropDownItemViewModel
+                                                                    {
+                                                                        Name = c.CityName,
+                                                                        Value = c.CityCode,
+                                                                        Text = c.CityName
+                                                                    }).ToList();
+            return cities;
+        }
     }
 }

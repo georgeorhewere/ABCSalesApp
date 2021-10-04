@@ -3,6 +3,7 @@ using ABCApp.Tests.Mocks.Services;
 using ABCApp.Web.Controllers;
 using ABCApp.Web.Models;
 using Moq;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -69,5 +70,46 @@ namespace ABCApp.Tests.Controller
         }
 
 
+        [Fact]
+        public void CountryController_Cities_ReturnsEmptyListForInvalidId()
+        {
+            // arrange
+            int invalidRegionId = 8;
+            var mockCountryService = new MockCountryService().MockGetCities(invalidRegionId);
+            var countryController = new CountryController(mockCountryService.Object);
+
+            // act
+
+            var cities = countryController.Cities(invalidRegionId);
+
+            // assert
+            //empty
+            Assert.Empty(cities);
+            // not null 
+            Assert.NotNull(cities);
+        }
+
+        [Fact]
+        public void CountryController_Cities_ReturnsList_Of2Items_ForValidId()
+        {
+            // arrange
+            int regionId = 5;
+            var mockCountryService = new MockCountryService()
+                                                .MockGetCities(regionId);
+            var countryController = new CountryController(mockCountryService.Object);
+
+            // act
+            var cities = countryController.Cities(regionId);
+
+            // assert
+            // not empty
+            Assert.NotEmpty(cities);
+            // is dropdownitemviewmodel list
+            Assert.IsType<List<DropDownItemViewModel>>(cities);
+            // count = 2
+            Assert.Equal(2, cities.Count());
+
+
+        }
     }
 }
