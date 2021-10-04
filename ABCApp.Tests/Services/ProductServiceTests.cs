@@ -37,5 +37,47 @@ namespace ABCApp.Tests.Services
                                         
         }
 
+
+        [Fact]
+        public void ProductService_GetProductById_ReturnsNullForInvalidId()
+        {
+            // arrange
+            int invalidProductId = 7;
+            var mockProductRepo = new MockProductRepository().MockGetProductById(invalidProductId);
+            var productService = new ProductService(mockProductRepo.Object);
+
+            // act
+            var product = productService.GetProductById(invalidProductId);
+
+            //assert
+            // is null 
+            Assert.Null(product);
+
+        }
+
+
+        [Fact]
+        public void ProductService_GetProductById_ReturnsProductForValidId()
+        {
+            // arrange
+            int productId = 2;
+            var mockProductRepo = new MockProductRepository()
+                                           .MockGetProductById(productId);
+            var productService = new ProductService(mockProductRepo.Object);
+
+            // act
+            var product = productService.GetProductById(productId);
+
+            // assert
+            // not null
+            Assert.NotNull(product);
+            // type is product
+            Assert.IsType<Product>(product);
+            // confirm Id
+            Assert.Equal(2, product.ProductId);
+
+        }
+
+
     }
 }

@@ -11,18 +11,18 @@ namespace ABCApp.Service
 {
     public class ProductService : IProductService
     {
-        private IProductRepository abcRepository;        
+        private IProductRepository productRepository;        
 
         public ProductService(IProductRepository dbRepository)
         {
-            abcRepository = dbRepository;            
+            productRepository = dbRepository;            
         }
 
         public decimal GetProductPrice(int productId)
         {
             try
             {
-                return abcRepository.GetProductById(productId).Price;
+                return productRepository.GetProductById(productId).Price;
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace ABCApp.Service
         {
             try
             {
-                return abcRepository.GetProducts();
+                return productRepository.GetProducts();
             }
             catch (Exception ex)
             {
@@ -45,6 +45,11 @@ namespace ABCApp.Service
                 //abcRepository.SaveError(errorObj);
                 return new List<Product>();
             }
+        }
+
+        public Product GetProductById(int productId)
+        {
+            return productRepository.GetProductById(productId);
         }
     }
 }

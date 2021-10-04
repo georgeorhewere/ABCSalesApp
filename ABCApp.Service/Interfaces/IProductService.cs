@@ -12,5 +12,7 @@ namespace ABCApp.Service.Interfaces
         IEnumerable<Product> GetProducts();
 
         decimal GetProductPrice(int productId);
+
+        Product GetProductById(int productId);
     }
 }

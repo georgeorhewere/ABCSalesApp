@@ -31,10 +31,10 @@ namespace ABCApp.Tests.Mocks.Repositories
             return this;
         }
 
-        public MockProductRepository MockGetProductById()
+        public MockProductRepository MockGetProductById(int productId)
         {
             Setup(x => x.GetProductById(It.IsAny<int>()))
-                .Returns(products.Where(x => It.IsAny<int>() == x.ProductId).FirstOrDefault());
+                .Returns(products.Where(x => productId == x.ProductId).FirstOrDefault());
 
             return this;
         }
