@@ -22,7 +22,17 @@ namespace ABCApp.Tests.Mocks
             return this;
         }
 
+        public MockProductService MockGetProductById(int productId) {
 
+            var mockProductrepo = new MockProductRepository().MockGetProductById(productId);
+
+            Setup(x => x.GetProductById(It.IsAny<int>()))
+                .Returns(mockProductrepo.Object.GetProductById(productId));
+
+            return this;
+        
+        
+        }
 
     }
 }

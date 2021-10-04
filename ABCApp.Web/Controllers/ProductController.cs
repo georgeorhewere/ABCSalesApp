@@ -32,16 +32,23 @@ namespace ABCApp.Web.Controllers
 
         public IActionResult ProductById(int productId)
         {
-            OrderListItemViewModel model = new OrderListItemViewModel() 
-                                                    {
-                                                         ProductId = 24,
-                                                         Name = "SkyRun Washing Maching",
-                                                         UnitPrice = 23.54m,
-                                                         Quantity = 1                                                         
-                                                    };
 
+            var product = productService.GetProductById(productId);
+            if (product == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                OrderListItemViewModel model = new OrderListItemViewModel()
+                {
+                    ProductId = product.ProductId,
+                    Name = product.ProductName,
+                    UnitPrice = product.Price,
+                };
 
-            return PartialView("_OrderItem",model) ;
+                return PartialView("_OrderItem", model);
+            }
         }
 
     }
