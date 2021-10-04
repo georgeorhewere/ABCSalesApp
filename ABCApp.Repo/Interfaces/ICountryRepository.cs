@@ -11,6 +11,6 @@ namespace ABCApp.Repo.Interfaces
     {
         IEnumerable<Country> GetCountries();
         IEnumerable<Region> GetCountryRegions(int countryId);
-        IEnumerable<City> GetRegionCities(string regionCode);
+        IEnumerable<City> GetRegionCities(int regionId);
     }
 }

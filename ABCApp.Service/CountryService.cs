@@ -16,7 +16,7 @@ namespace ABCApp.Service
         {
             countryRepository = _countryRepository;
         }
-        public IEnumerable<City> GetCities(string regionCode)
+        public IEnumerable<City> GetCities(int regionCode)
         {
             try
             {

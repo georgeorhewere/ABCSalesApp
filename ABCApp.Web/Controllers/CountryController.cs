@@ -12,11 +12,13 @@ namespace ABCApp.Web.Controllers
     {
         private readonly ICountryService countryService;
 
+        
         public CountryController(ICountryService _countryService)
         {
             countryService = _countryService;                    
         }
 
+        [HttpGet]
         public DropDownViewModel Countries()
         {
             DropDownViewModel model;
@@ -31,6 +33,7 @@ namespace ABCApp.Web.Controllers
             return model;
         }
 
+        [HttpGet]
         public IEnumerable<DropDownItemViewModel> Regions(int countryId)
         {
             List<DropDownItemViewModel> regions = new List<DropDownItemViewModel>();

@@ -35,8 +35,6 @@ namespace ABCApp.Tests.Controller
 
         }
 
-
-
         [Fact]
         public void CountryController_GetRegions_ReturnsEmptyListForInvalidId()
         {

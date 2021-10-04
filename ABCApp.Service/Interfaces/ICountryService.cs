@@ -11,6 +11,6 @@ namespace ABCApp.Service.Interfaces
     {
         IEnumerable<Country> GetCountries();
         IEnumerable<Region> GetRegions(int countryCode);
-        IEnumerable<City> GetCities(string regionCode);
+        IEnumerable<City> GetCities(int regionCode);
     }
 }

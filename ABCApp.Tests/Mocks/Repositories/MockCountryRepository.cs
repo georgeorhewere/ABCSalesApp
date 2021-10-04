@@ -61,5 +61,12 @@ namespace ABCApp.Tests.Mocks.Repositories
             return this;
         }
 
+        public MockCountryRepository MockGetCities(int regionId)
+        {
+            Setup(x => x.GetRegionCities(It.IsAny<int>()))
+                .Returns(cities.Where(c => c.RegionId == regionId).ToList());
+            
+            return this;
+        }
     }
 }

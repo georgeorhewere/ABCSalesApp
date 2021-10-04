@@ -188,17 +188,7 @@ namespace ABCApp.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult GetRegions(string countryCode)
-        {
-            List<SelectListItem> regions = new List<SelectListItem>();
-            if (!string.IsNullOrEmpty(countryCode))
-            {
-                // var countryRegions = countryService.GetRegions(countryCode).Select(x => new SelectListItem { Text = x.RegionName, Value = x.RegionId.ToString() }).ToList();
-                // regions = regions.Concat(countryRegions).ToList();
-            }
-            return Json(regions);
-        }
+     
 
         [HttpPost]
         public ActionResult GetCities(string regionCode)
@@ -206,8 +196,8 @@ namespace ABCApp.Web.Controllers
             List<SelectListItem> cities = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(regionCode))
             {
-                var regionCities = countryService.GetCities(regionCode).Select(x => new SelectListItem { Text = x.CityName, Value = x.CityCode.ToString() }).ToList();
-                cities = cities.Concat(regionCities).ToList();
+              //  var regionCities = countryService.GetCities(regionCode).Select(x => new SelectListItem { Text = x.CityName, Value = x.CityCode.ToString() }).ToList();
+               // cities = cities.Concat(regionCities).ToList();
             }
 
             return Json(cities);

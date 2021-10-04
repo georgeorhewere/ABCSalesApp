@@ -27,9 +27,8 @@ namespace ABCApp.Repo.Repositories
             return context.Regions.FromSqlRaw($"{DbProcedures.LoadRegions} {countryId}").ToList();
         }
 
-        public IEnumerable<City> GetRegionCities(string regionCode)
-        {
-            int regionId = Convert.ToInt32(regionCode);
+        public IEnumerable<City> GetRegionCities(int regionId)
+        {            
             return context.Cities.FromSqlRaw($"{DbProcedures.LoadCities} {regionId}").ToList();
         }
 

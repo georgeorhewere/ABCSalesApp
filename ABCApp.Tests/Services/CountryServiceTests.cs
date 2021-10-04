@@ -78,5 +78,46 @@ namespace ABCApp.Tests.Services
 
         }
 
+        [Fact]
+        public void CountryService_GetCities_ReturnsEmptyListForInvalidId()
+        {
+            //Arrange
+            int testRegionId = 9;
+            var countryMockRepository = new MockCountryRepository()
+                                                    .MockGetCities(testRegionId);
+
+            var countryService = new CountryService(countryMockRepository.Object);
+
+            //Act
+            var cities = countryService.GetCities(testRegionId);
+
+            //Assert
+            // Empty list
+            Assert.Empty(cities);
+        }
+
+        [Fact]
+        public void CountryService_GetCities_ReturnsList_Of2Items_ForValidId()
+        {
+            //Assert
+            var regionId = 4;
+            var mockCountryRepository = new MockCountryRepository()
+                                                .MockGetCities(regionId);
+            var countryService = new CountryService(mockCountryRepository.Object);
+
+            //Act
+            var cities = countryService.GetCities(regionId);
+
+            //Arrange
+            // not empty
+            Assert.NotEmpty(cities);
+            // type of cities
+            Assert.IsType<List<City>>(cities);
+            // count is 2
+            Assert.Equal(2, cities.Count());
+
+        }
+
+
     }
 }
