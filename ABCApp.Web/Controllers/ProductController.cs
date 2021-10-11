@@ -1,6 +1,7 @@
 ﻿using ABCApp.Service.Interfaces;
 using ABCApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace ABCApp.Web.Controllers
@@ -45,6 +46,7 @@ namespace ABCApp.Web.Controllers
                     ProductId = product.ProductId,
                     Name = product.ProductName,
                     UnitPrice = product.Price,
+                    ItemId = $"{Guid.NewGuid().ToString()}_item"
                 };
 
                 return PartialView("_OrderItem", model);

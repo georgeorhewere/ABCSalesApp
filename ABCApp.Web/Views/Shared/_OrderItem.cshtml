@@ -1,8 +1,41 @@
 ﻿@model OrderListItemViewModel
 
-    <tr>
-        <td>@Model.Name</td>
-        <td>@Model.Quantity</td>
-        <td>$@Model.UnitPrice</td>
-        <td>$@Model.Total</td>    
-    </tr>
+<tr>
+    <td>
+        <div class="d-flex flex-row p-1 justify-content-center">
+            <input type="hidden" class="item-id" name="item-id_@Model.ItemId" value="@Model.ProductId">
+            <div class="d-flex-inline p-2">@Model.Name</div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex flex-row p-1 justify-content-sm-between">
+            <input type="hidden" class="item-quantity" name="item-quantity_@Model.ItemId" value="@Model.Quantity">
+            <div class="d-flex-inline p-2">@Model.Quantity</div>
+            <div class="d-flex">
+                <button id="btnQuantityUp" class="mini ui icon button">
+                    <i class="caret up icon"></i>
+                </button>
+                <button id="btnQuantityDown" class="mini ui icon button">
+                    <i class="caret down icon"></i>
+                </button>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex flex-row p-1 justify-content-center">
+            <input type="hidden" class="item-price" name="item-price_@Model.ItemId" value="@Model.UnitPrice">
+            <div class="d-flex-inline p-2">$@Model.UnitPrice</div>
+        </div>
+
+    </td>
+    <td>
+        <div class="d-flex flex-row p-1 justify-content-center">            
+            <div class="d-flex-inline p-2">$@Model.Total</div>
+        </div>        
+    </td>
+    <td>
+        <div class="d-flex flex-row p-1 justify-content-center">
+            <div class="d-flex-inline p-2">Remove Item</div>
+        </div> 
+    </td>
+</tr>

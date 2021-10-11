@@ -14,7 +14,8 @@ namespace ABCApp.Web.Models
             Quantity = 1;
         }
         public int ProductId { get; set; }        
-        public string Name { get; set; }      
+        public string Name { get; set; }
+        public string ItemId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Total { get { return UnitPrice * Quantity; } }
