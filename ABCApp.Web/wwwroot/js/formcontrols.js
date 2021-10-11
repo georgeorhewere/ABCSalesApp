@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿
+$(function () {
     // initialize dropdowns
     $('.country.ui.dropdown')
         .dropdown({
@@ -85,24 +86,26 @@
             filterRemoteData: true,
             onChange: (value, text, $choice) => {
                 //query product info 
-                $.ajax({
-                    type: "post",
-                    url: "/product/productbyid",
-                    data: { productId: value },
-                    datatype: "json",
-                    traditional: true,
-                    success: function (data) {
-                        console.log(data)
-                        $('.order-items').append(data)
+                // console.log(value, text)               
+                if (value) {
+                    $.ajax({
+                        type: "post",
+                        url: "/product/productbyid",
+                        data: { productId: value },
+                        datatype: "json",
+                        traditional: true,
+                        success: function (data) {
+                            $('.order-items').append(data)
+                            $('.products').dropdown('clear');
 
-                    },
-                    complete: function () {
-                        setTimeout(() => {
-                            $('#city').parent().removeClass('loading');
-                        }, 1000);
-                    }
-                });
-
+                        },
+                        complete: function () {
+                            setTimeout(() => {
+                                $('#city').parent().removeClass('loading');
+                            }, 500);
+                        }
+                    });
+                }
             }
         })
     //datepicker
@@ -111,7 +114,9 @@
     });
     //set to current date
     $('.datepicker').datepicker('pick');
-  
+
+ 
+   
 
 
 
