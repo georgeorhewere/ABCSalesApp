@@ -1,6 +1,6 @@
 ﻿@model OrderListItemViewModel
 
-<tr>
+<tr id="item_@Model.ItemId">
     <td>
         <div class="d-flex flex-row p-1 justify-content-center">
             <input type="hidden" class="item-id" name="item-id_@Model.ItemId" value="@Model.ProductId">
@@ -8,14 +8,14 @@
         </div>
     </td>
     <td>
-        <div class="d-flex flex-row p-1 justify-content-sm-between" id="item_@Model.ProductId">
-            <input type="hidden" class="item-quantity" id="item-quantity_@Model.ProductId" name="item-quantity" value="@Model.Quantity">
-            <div id="quantity_@Model.ProductId" class="d-flex-inline p-2 quantity">@Model.Quantity</div>
+        <div class="d-flex flex-row p-1 justify-content-sm-between">
+            <input type="hidden" class="item-quantity" id="item-quantity_@Model.ItemId" name="item-quantity" value="@Model.Quantity">
+            <div id="quantity_@Model.ItemId" class="d-flex-inline p-2 quantity">@Model.Quantity</div>
             <div class="d-flex">
-                <button id="btnQuantityUp_@Model.ProductId" class="mini ui icon button qtyUpBtn">
+                <button id="btnQuantityUp_@Model.ItemId" class="mini ui icon button qtyUpBtn">
                     <i class="caret up icon"></i>
                 </button>
-                <button id="btnQuantityDown_@Model.ProductId" class="mini ui icon button qtyDownBtn">
+                <button id="btnQuantityDown_@Model.ItemId" class="mini ui icon button qtyDownBtn">
                     <i class="caret down icon"></i>
                 </button>
             </div>
@@ -23,63 +23,80 @@
     </td>
     <td>
         <div class="d-flex flex-row p-1 justify-content-center">
-            <input type="hidden" id="item-price_@Model.ProductId"  class="item-price" name="item-price_@Model.ProductId" value="@Model.UnitPrice">
+            <input type="hidden" id="item-price_@Model.ItemId" class="item-price" name="item-price_@Model.ProductId" value="@Model.UnitPrice">
             <div class="d-flex-inline p-2">$@Model.UnitPrice</div>
         </div>
 
     </td>
     <td>
         <div class="d-flex flex-row p-1 justify-content-center">
-            <div id="item-total_@Model.ProductId" class="d-flex-inline p-2 item-total">$@Model.Total</div>
+            <div id="item-total_@Model.ItemId" class="d-flex-inline p-2 item-total">$@Model.Total</div>
         </div>
     </td>
     <td>
         <div class="d-flex flex-row p-1 justify-content-center">
-            <div class="d-flex-inline p-2">Remove Item</div>
+            <div class="d-flex-inline p-2">
+                <button id="btnRemove_@Model.ItemId" class="tiny ui icon button remove">
+                    <i class="close icon"></i>
+                </button>
+            </div>
         </div>
     </td>
-</tr>
-<script>
-    $(function () {
-        $('.qtyUpBtn').click(function (e) {
-            e.preventDefault();
-            var currentItemBtn = e.currentTarget.id;
-            var id = currentItemBtn.split("_")[1];            
+    <script>
+        $(function () {
+            $('.qtyUpBtn').click(function (e) {
+                e.preventDefault();
+                var currentItemBtn = e.currentTarget.id;
+                var id = currentItemBtn.split("_")[1];
 
-            var currentValue = +$('#item-quantity_'+id).val();
-            var nextValue = currentValue + 1;
-            var unitPrice = +$('#item-price_'+id).val();
-            var itemTotal = getItemTotal(nextValue, unitPrice);            
-
-             setUpdatedItemValues(nextValue, itemTotal, id);        
-        })
-
-        $('.qtyDownBtn').click(function (e) {
-            e.preventDefault();
-            var currentItemBtn = e.currentTarget.id;
-            var id = currentItemBtn.split("_")[1];
-
-            var currentValue = +$('#item-quantity_' + id).val();
-            if (currentValue > 1) {
-                var nextValue = currentValue - 1;
+                var currentValue = +$('#item-quantity_' + id).val();
+                var nextValue = currentValue + 1;
                 var unitPrice = +$('#item-price_' + id).val();
-                var itemTotal = getItemTotal(nextValue,unitPrice);
+                var itemTotal = getItemTotal(nextValue, unitPrice);
 
-                setUpdatedItemValues(nextValue, itemTotal,id)
+                setUpdatedItemValues(nextValue, itemTotal, id);
+            })
+
+            $('.qtyDownBtn').click(function (e) {
+                e.preventDefault();
+                var currentItemBtn = e.currentTarget.id;
+                var id = currentItemBtn.split("_")[1];
+
+                var currentValue = +$('#item-quantity_' + id).val();
+                if (currentValue > 1) {
+                    var nextValue = currentValue - 1;
+                    var unitPrice = +$('#item-price_' + id).val();
+                    var itemTotal = getItemTotal(nextValue, unitPrice);
+
+                    setUpdatedItemValues(nextValue, itemTotal, id)
+                }
+
+            })
+
+            function getItemTotal(quantity, unitPrice) {
+                return Math.round(((quantity * unitPrice) + Number.EPSILON) * 100) / 100
             }
 
+
+            function setUpdatedItemValues(quantity, total, itemId) {
+                $('#item-quantity_' + itemId).val(quantity);
+                $('#quantity_' + itemId).text(quantity);
+                $('#item-total_' + itemId).text('$' + total);
+            }
+
+            $('.remove ').click((e) => {
+
+                e.preventDefault();
+
+                var currentItemBtn = e.currentTarget.id;
+                var id = currentItemBtn.split("_")[1];
+
+                const row = $('#item_' + id);                
+                row.remove();                
+                console.log("removed row")
+            })
+
+
         })
-
-        function getItemTotal(quantity, unitPrice) {
-            return Math.round(((quantity * unitPrice) + Number.EPSILON) * 100) / 100
-        }
-
-
-        function setUpdatedItemValues(quantity, total, itemId)
-        {
-            $('#item-quantity_'+itemId).val(quantity);
-            $('#quantity_'+itemId).text(quantity);
-            $('#item-total_' + itemId).text('$'+total);
-        }
-    })
-</script>
+    </script>
+</tr>

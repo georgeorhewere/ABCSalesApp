@@ -46,7 +46,7 @@ namespace ABCApp.Web.Controllers
                     ProductId = product.ProductId,
                     Name = product.ProductName,
                     UnitPrice = product.Price,
-                    ItemId = $"{Guid.NewGuid().ToString()}_item"
+                    ItemId = $"{Guid.NewGuid().ToString()}"
                 };
 
                 return PartialView("_OrderItem", model);

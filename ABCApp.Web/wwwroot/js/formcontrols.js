@@ -1,5 +1,6 @@
 ﻿
 $(function () {
+
     // initialize dropdowns
     $('.country.ui.dropdown')
         .dropdown({
@@ -44,6 +45,7 @@ $(function () {
                 });
             }
         });
+
     $('.state.ui.dropdown')
         .dropdown({
 
@@ -75,8 +77,10 @@ $(function () {
             }
 
         });
+
     $('.city.ui.dropdown')
         .dropdown();
+
     $('.products.ui.dropdown')
         .dropdown({
             apiSettings: {
@@ -108,10 +112,12 @@ $(function () {
                 }
             }
         })
+
     //datepicker
     $('.datepicker').datepicker({
         autoHide: true,
     });
+
     //set to current date
     $('.datepicker').datepicker('pick');
 
