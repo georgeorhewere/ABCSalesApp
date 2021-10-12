@@ -84,6 +84,10 @@ body {
 }
 
 @font-face {
+    font-family: 'Open-sans-italic';
+    src: url('/lib/fonts/Open_Sans/OpenSans-LightItalic.ttf');
+}
+@font-face {
     font-family: 'lato';
     src: url('/lib/fonts/Lato/Lato-Regular.ttf');
 }
@@ -146,6 +150,14 @@ a.nav-link {
 .section-header {
     font-family: Open-sans-bold;
     font-size: 2rem;
+}
+.total-section {
+    font-family: Open-sans-bold;
+    font-size: 1.2rem;
+}
+.total-value {
+    font-family: Open-sans-italic;
+    font-size: 1.2rem;
 }
 
 .status-type {

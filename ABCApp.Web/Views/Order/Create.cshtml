@@ -80,33 +80,33 @@
                         <th>
                             <div class="d-flex flex-row p-1 justify-content-center">
                                 <div class="d-flex-inline p-2">Name</div>
-                            </div>                            
+                            </div>
                         </th>
                         <th>
                             <div class="d-flex flex-row p-1 justify-content-center">
                                 <div class="d-flex-inline p-2">Quantity</div>
-                            </div>                            
+                            </div>
                         </th>
                         <th>
                             <div class="d-flex flex-row p-1 justify-content-center">
                                 <div class="d-flex-inline p-2">Unit Price</div>
-                            </div>                            
+                            </div>
                         </th>
                         <th>
                             <div class="d-flex flex-row p-1 justify-content-center">
                                 <div class="d-flex-inline p-2">Total</div>
-                            </div>                            
+                            </div>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody class="order-items">
-                   
                 </tbody>
             </table>
-
         </div>
 
+        <h4 class="ui dividing header">Order Total</h4>
+        @{ await Html.RenderPartialAsync("_OrderTotal"); }
 
 
 
