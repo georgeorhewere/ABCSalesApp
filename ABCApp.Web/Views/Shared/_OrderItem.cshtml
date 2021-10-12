@@ -41,62 +41,65 @@
                 </button>
             </div>
         </div>
-    </td>
-    <script>
-        $(function () {
-            $('.qtyUpBtn').click(function (e) {
-                e.preventDefault();
-                var currentItemBtn = e.currentTarget.id;
-                var id = currentItemBtn.split("_")[1];
+    </td>    
+</tr>
+<script id="script_@Model.ItemId">
+    $(function () {
+        $('.qtyUpBtn').click(function (e) {
+            e.preventDefault();
+            var currentItemBtn = e.currentTarget.id;
+            var id = currentItemBtn.split("_")[1];
 
-                var currentValue = +$('#item-quantity_' + id).val();
-                var nextValue = currentValue + 1;
+            var currentValue = +$('#item-quantity_' + id).val();
+            var nextValue = currentValue + 1;
+            var unitPrice = +$('#item-price_' + id).val();
+            var itemTotal = getItemTotal(nextValue, unitPrice);
+
+            setUpdatedItemValues(nextValue, itemTotal, id);
+        })
+
+        $('.qtyDownBtn').click(function (e) {
+            e.preventDefault();
+            var currentItemBtn = e.currentTarget.id;
+            var id = currentItemBtn.split("_")[1];
+
+            var currentValue = +$('#item-quantity_' + id).val();
+            if (currentValue > 1) {
+                var nextValue = currentValue - 1;
                 var unitPrice = +$('#item-price_' + id).val();
                 var itemTotal = getItemTotal(nextValue, unitPrice);
 
-                setUpdatedItemValues(nextValue, itemTotal, id);
-            })
-
-            $('.qtyDownBtn').click(function (e) {
-                e.preventDefault();
-                var currentItemBtn = e.currentTarget.id;
-                var id = currentItemBtn.split("_")[1];
-
-                var currentValue = +$('#item-quantity_' + id).val();
-                if (currentValue > 1) {
-                    var nextValue = currentValue - 1;
-                    var unitPrice = +$('#item-price_' + id).val();
-                    var itemTotal = getItemTotal(nextValue, unitPrice);
-
-                    setUpdatedItemValues(nextValue, itemTotal, id)
-                }
-
-            })
-
-            function getItemTotal(quantity, unitPrice) {
-                return Math.round(((quantity * unitPrice) + Number.EPSILON) * 100) / 100
+                setUpdatedItemValues(nextValue, itemTotal, id)
             }
-
-
-            function setUpdatedItemValues(quantity, total, itemId) {
-                $('#item-quantity_' + itemId).val(quantity);
-                $('#quantity_' + itemId).text(quantity);
-                $('#item-total_' + itemId).text('$' + total);
-            }
-
-            $('.remove ').click((e) => {
-
-                e.preventDefault();
-
-                var currentItemBtn = e.currentTarget.id;
-                var id = currentItemBtn.split("_")[1];
-
-                const row = $('#item_' + id);                
-                row.remove();                
-                console.log("removed row")
-            })
-
 
         })
-    </script>
-</tr>
+
+        function getItemTotal(quantity, unitPrice) {
+            return Math.round(((quantity * unitPrice) + Number.EPSILON) * 100) / 100
+        }
+
+
+        function setUpdatedItemValues(quantity, total, itemId) {
+            $('#item-quantity_' + itemId).val(quantity);
+            $('#quantity_' + itemId).text(quantity);
+            $('#item-total_' + itemId).text('$' + total);
+        }
+
+        $('.remove ').click((e) => {
+
+            e.preventDefault();
+
+            var currentItemBtn = e.currentTarget.id;
+            var id = currentItemBtn.split("_")[1];
+
+            const row = $('#item_' + id);
+            row.remove();
+            const row_script = $('#script_' + id);
+            row_script.remove();
+
+            console.log("removed row and script")
+        })
+
+
+    })
+</script>
